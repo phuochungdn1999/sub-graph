@@ -1,7 +1,7 @@
 {
-    "name": "@sushiswap/subgraph-abis",
-    "version": "1.0.0",
-    "description": "Abis",
+    "name": "@s-one-finance/subgraph-abis",
+    "version": "0.0.1",
+    "description": "ABIs",
     "license": "MIT",
     "private": true,
     "files": [

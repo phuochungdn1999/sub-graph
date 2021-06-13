@@ -1,0 +1,57 @@
+specVersion: 0.0.3
+description: Masterchef
+repository: https://github.com/S-ONE-Finance/soneswap-subgraph
+schema:
+  file: ./masterfarmer.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: MasterFarmer
+    network: {{ network }}
+    source:
+      address: '{{ address }}'
+      abi: MasterFarmer
+      startBlock: {{ startBlock }}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - MasterFarmer
+        - History
+        - Pool
+        - PoolHistory
+        - User
+      abis:
+        - name: MasterFarmer
+          file: ../../node_modules/@s-one-finance/core/build/contracts/SoneMasterFarmer.json
+        - name: Factory
+          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
+        - name: Pair
+          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Pair.json
+        - name: ERC20
+          file: ../../node_modules/@s-one-finance/core/build/contracts/ERC20.json
+      eventHandlers:
+        - event: Deposit(indexed address,indexed uint256,uint256)
+          handler: deposit
+        - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
+          handler: emergencyWithdraw
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: ownershipTransferred
+        - event: Withdraw(indexed address,indexed uint256,uint256)
+          handler: withdraw
+      callHandlers:
+        - function: add(uint256,address,bool)
+          handler: add
+        - function: set(uint256,uint256,bool)
+          handler: set
+        - function: massUpdatePools()
+          handler: massUpdatePools
+        - function: updatePool(uint256)
+          handler: updatePool
+        - function: setMigrator(address)
+          handler: setMigrator
+        - function: migrate(uint256)
+          handler: migrate
+        - function: dev(address)
+          handler: dev
+      file: ./src/masterfarmer.ts

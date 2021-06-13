@@ -1,0 +1,242 @@
+# MasterFarmer
+type MasterFarmer @entity {
+  # Contract address
+  id: ID!
+
+  # Bonus multiplier
+  bonusMultiplier: BigInt!
+
+  # Bonus end block
+  bonusEndBlock: BigInt!
+
+  # Dev fund address
+  devaddr: Bytes!
+
+  # Migrator
+  migrator: Bytes!
+
+  # Owner
+  owner: Bytes!
+
+  # Start block
+  startBlock: BigInt!
+
+  # Sone
+  sone: Bytes!
+
+  # Sone per block
+  sonePerBlock: BigInt!
+
+  # Total allocation point
+  totalAllocPoint: BigInt!
+
+  # Pools
+  pools: [Pool!]! @derivedFrom(field: "owner")
+
+  # Pool count
+  poolCount: BigInt!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # History
+  history: [History!]! @derivedFrom(field: "owner")
+
+  # Upated at
+  updatedAt: BigInt!
+}
+
+type History @entity {
+  # Master chef id concatenated with timestamp
+  id: ID!
+
+  # Owner (MasterFarmer, Pool, or User).
+  owner: MasterFarmer!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+}
+
+# Pool
+type Pool @entity {
+  # Index of pool in poolInfo on MasterFarmer contract
+  id: ID!
+
+  # Owner
+  owner: MasterFarmer!
+
+  # Pair Liquidity Token Address
+  pair: Bytes!
+
+  # Allocation point
+  allocPoint: BigInt!
+
+  # Last reward block
+  lastRewardBlock: BigInt!
+
+  # Accumulated sone per share
+  accSonePerShare: BigInt!
+
+  # SLP token balance
+  balance: BigInt!
+
+  # Pool users
+  users: [User!]! @derivedFrom(field: "pool")
+
+  # User count
+  userCount: BigInt!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+
+  # Upated at
+  updatedAt: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Sone harvested
+  soneHarvested: BigDecimal!
+
+  # Sone harvested
+  soneHarvestedUSD: BigDecimal!
+}
+
+type PoolHistory @entity {
+  # Pool id concatenated with timestamp
+  id: ID!
+
+  # Pool
+  pool: Pool!
+
+  # SLP Balance
+  slpBalance: BigDecimal!
+
+  # SLP Age
+  slpAge: BigDecimal!
+
+  # SLP Removed
+  slpAgeRemoved: BigDecimal!
+
+  # SLP Deposited
+  slpDeposited: BigDecimal!
+
+  # SLP Withdrawn
+  slpWithdrawn: BigDecimal!
+
+  # User Count
+  userCount: BigInt!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Sone harvested
+  soneHarvested: BigDecimal!
+
+  # Sone harvested
+  soneHarvestedUSD: BigDecimal!
+}
+
+type User @entity {
+  # Pool id concatenated with user address
+  id: ID!
+
+  # User address
+  address: Bytes!
+
+  # Related pool
+  pool: Pool
+
+  # We do some fancy math here. Basically, any point in time, the amount of SUSHIs
+  # entitled to a user but is pending to be distributed is:
+  # pending reward = (user.amount * pool.accSonePerShare) - user.rewardDebt
+  # Whenever a user deposits or withdraws LP tokens to a pool. Here's what happens:
+  # 1. The pool's `accSonePerShare` (and `lastRewardBlock`) gets updated.
+  # 2. User receives the pending reward sent to his/her address.
+  # 3. User's `amount` gets updated.
+  # 4. User's `rewardDebt` gets updated.
+
+  # Amount
+  amount: BigInt!
+
+  # Reward debt
+  rewardDebt: BigInt!
+
+  # Entry USD
+  entryUSD: BigDecimal!
+
+  # Exit USD
+  exitUSD: BigDecimal!
+
+  # Sone harvested
+  soneHarvested: BigDecimal!
+
+  # Sone harvested
+  soneHarvestedUSD: BigDecimal!
+
+  # Timestamp
+  timestamp: BigInt!
+
+  # Block
+  block: BigInt!
+}

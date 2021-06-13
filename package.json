@@ -1,5 +1,5 @@
 {
-  "name": "@sushiswap/subgraphs",
+  "name": "@s-one-finance/subgraphs",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -21,7 +21,7 @@
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.20.0",
     "@graphprotocol/graph-ts": "^0.20.0",
-    "@sushiswap/core": "^1.4.2",
+    "@s-one-finance/core": "^0.0.5",
     "@typescript-eslint/eslint-plugin": "^4.0.0",
     "@typescript-eslint/parser": "^4.0.0",
     "eslint": "^7.0.0",
