@@ -2,31 +2,23 @@
     "name": "exchange",
     "license": "MIT",
     "version": "1.0.0",
-    "author": "SushiSwap",
+    "author": "SoneSwap",
     "files": [
         "generated"
     ],
     "scripts": {
         "codegen": "graph codegen exchange.yaml",
         "build": "graph build exchange.yaml",
-        "create-local": "graph create --node http://localhost:8020/ /soneswap/soneswap",
-        "remove-local": "graph remove --node http://localhost:8020/ /soneswap/soneswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /soneswap/soneswap",
+        
+        "create-local": "graph create --node http://localhost:8020/ danielpham765/sone-swap",
+        "remove-local": "graph remove --node http://localhost:8020/ danielpham765/sone-swap",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 danielpham765/sone-swap",
 
-        "deploy:ethereum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
-        "deploy:fantom": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ soneswap/fantom-exchange exchange.yaml",
-        "deploy:matic": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ soneswap/matic-exchange exchange.yaml",
-        "deploy:xdai": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ soneswap/xdai-exchange exchange.yaml",
-        "deploy:bsc": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ soneswap/bsc-exchange exchange.yaml",
-
-        "prepare:bsc": "mustache config/bsc.json exchange.template.yaml > exchange.yaml",
-        "prepare:fantom": "mustache config/fantom.json exchange.template.yaml > exchange.yaml",
-        "prepare:goerli": "mustache config/goerli.json exchange.template.yaml > exchange.yaml",
-        "prepare:kovan": "mustache config/kovan.json exchange.template.yaml > exchange.yaml",
+        "deploy:ethereum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/sone-finance-swap exchange.yaml",
+        
         "prepare:mainnet": "mustache config/mainnet.json exchange.template.yaml > exchange.yaml",
-        "prepare:matic": "mustache config/matic.json exchange.template.yaml > exchange.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json exchange.template.yaml > exchange.yaml",
         "prepare:ropsten": "mustache config/ropsten.json exchange.template.yaml > exchange.yaml",
-        "prepare:xdai": "mustache config/xdai.json exchange.template.yaml > exchange.yaml"
+        "prepare:bsc": "mustache config/bsc.json exchange.template.yaml > exchange.yaml"
     }
 }

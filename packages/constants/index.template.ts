@@ -30,10 +30,6 @@ export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_FARMER_ADDRESS = Address.fromString('{{ masterchef_address }}')
 
-export const SONE_BAR_ADDRESS = Address.fromString('{{ sone_bar_address }}')
-
-export const SONE_MAKER_ADDRESS = Address.fromString('{{ sone_maker_address }}')
-
 export const SONE_TOKEN_ADDRESS = Address.fromString('{{ sone_token_address }}')
 
 export const SONE_USDT_PAIR_ADDRESS = Address.fromString('{{ sone_usdt_pair_address }}')
@@ -73,8 +69,3 @@ export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_wet
 export const UNISWAP_SONE_ETH_PAIR_ADDRESS = Address.fromString('{{ uniswap_sone_eth_pair_address }}')
 
 export const UNISWAP_SONE_USDT_PAIR_ADDRESS = Address.fromString('{{ uniswap_sone_usdt_pair_address }}')
-
-// MiniChef
-export const MINI_FARMER_ADDRESS = Address.fromString('{{ minichef_address }}')
-
-export const ACC_SONE_PRECISION = BigInt.fromString('1000000000000')

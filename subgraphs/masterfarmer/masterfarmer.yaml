@@ -8,9 +8,9 @@ dataSources:
     name: MasterFarmer
     network: ropsten
     source:
-      address: '0x286F75D951b6c8F852d75Ad719894424BfC149b0'
+      address: '0xd76C21407401fb89FfCAC7f0eB9e5e26d427A16B'
       abi: MasterFarmer
-      startBlock: 9731346
+      startBlock: 10435560
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
