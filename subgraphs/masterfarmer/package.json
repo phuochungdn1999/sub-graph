@@ -6,10 +6,12 @@
     "scripts": {
         "codegen": "graph codegen masterfarmer.yaml",
         "build": "graph build masterfarmer.yaml",
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sushiswap/master-chef masterfarmer.yaml",
-        "create-local": "graph create --node http://localhost:8020/ /sushiswap/sushiswap",
-        "remove-local": "graph remove --node http://localhost:8020/ /sushiswap/sushiswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /sushiswap/sushiswap",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/master-farmer masterfarmer.yaml",
+        
+        "create-local": "graph create --node http://localhost:8020/ /s-one-finance/master-farmer",
+        "remove-local": "graph remove --node http://localhost:8020/ /s-one-finance/master-farmer",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 /s-one-finance/master-farmer",
+        
         "prepare:bsc": "mustache config/bsc.json masterfarmer.template.yaml > masterfarmer.yaml",
         "prepare:fantom": "mustache config/fantom.json masterfarmer.template.yaml > masterfarmer.yaml",
         "prepare:goerli": "mustache config/goerli.json masterfarmer.template.yaml > masterfarmer.yaml",

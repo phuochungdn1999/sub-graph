@@ -35,15 +35,15 @@ import {
     if (masterFarmer === null) {
       const contract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
       masterFarmer = new MasterFarmer(MASTER_FARMER_ADDRESS.toHex())
-      masterFarmer.bonusMultiplier = contract.BONUS_MULTIPLIER()
-      masterFarmer.bonusEndBlock = contract.bonusEndBlock()
+      masterFarmer.bonusMultiplier = contract.getMultiplier(block.number.minus(new BigInt(1)), block.number)
+      masterFarmer.bonusEndBlock = contract.FINISH_BONUS_AT_BLOCK()
       masterFarmer.devaddr = contract.devaddr()
       masterFarmer.migrator = contract.migrator()
       masterFarmer.owner = contract.owner()
       // poolInfo ...
-      masterFarmer.startBlock = contract.startBlock()
+      masterFarmer.startBlock = contract.START_BLOCK()
       masterFarmer.sone = contract.sone()
-      masterFarmer.sonePerBlock = contract.sonePerBlock()
+      masterFarmer.sonePerBlock = contract.REWARD_PER_BLOCK()
       masterFarmer.totalAllocPoint = contract.totalAllocPoint()
       // userInfo ...
       masterFarmer.poolCount = BIG_INT_ZERO
