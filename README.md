@@ -1,36 +1,23 @@
-# SushiSwap Subgraph
+# SoneSwap Subgraph
 
-Aims to deliver analytics & historical data for SushiSwap. Still a work in progress. Feel free to contribute!
+Aims to deliver analytics & historical data for SoneSwap. Still a work in progress. Feel free to contribute!
 
-The Graph exposes a GraphQL endpoint to query the events and entities within the SushiSwap ecosytem.
+The Graph exposes a GraphQL endpoint to query the events and entities within the SoneSwap ecosytem.
 
 Current subgraph locations:
 
-1. **Exchange**: Includes all SushiSwap Exchange data with Price Data, Volume, Users, etc:
+1. **Exchange**: Includes all SoneSwap Exchange data with Price Data, Volume, Users, etc:
    + https://thegraph.com/explorer/subgraph/s-one-finance/exchange (mainnet)
-   + https://thegraph.com/explorer/subgraph/s-one-finance/fantom-exchange (ftm)
-   + https://thegraph.com/explorer/subgraph/s-one-finance/matic-exchange (matic)
-   + https://thegraph.com/explorer/subgraph/s-one-finance/xdai-exchange (xdai)
-   + https://thegraph.com/explorer/subgraph/s-one-finance/bsc-exchange (bsc)
+   + https://thegraph.com/explorer/subgraph/s-one-finance/exchange-ropsten
+   + https://thegraph.com/explorer/subgraph/s-one-finance/exchange-rinkeby
 
-2. **Master Chef**: Indexes all MasterChef staking data: https://thegraph.com/explorer/subgraph/s-one-finance/master-chef
+2. **Master Farmer**: Indexes all MasterFarmer staking data: https://thegraph.com/explorer/subgraph/s-one-finance/master-farmer
 
-3. **Sushi Maker**: Indexes the SushiMaker contract, that handles the serving of exchange fees to the SushiBar: https://thegraph.com/explorer/subgraph/s-one-finance/sone-maker
-
-4. **Sushi Timelock**: Includes all of the timelock transactions queued, executed, and cancelled: https://thegraph.com/explorer/subgraph/s-one-finance/sone-timelock
-
-5. **Sushi Bar**: Indexes the SushiBar, includes data related to the bar: https://thegraph.com/explorer/subgraph/s-one-finance/sone-bar
-
-6. **SushiSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SushiSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/s-one-finance-v1-exchange
-
-7. **BentoBox**: Indexes BentoBox and Kashi Lending data: https://thegraph.com/explorer/subgraph/s-one-finance/bentobox
-
-8. **MiniChef**: Indexes MiniChef contracts that are used in place of MasterChefs for alternate networks:
-  + https://thegraph.com/explorer/subgraph/s-one-finance/matic-minichef
+3. **SoneSwap-SubGraph-Fork** (on uniswap-fork branch): Indexes the SoneSwap Factory, includes Price Data, Pricing, etc: https://thegraph.com/explorer/subgraph/jiro-ono/s-one-finance-v1-exchange
 
 ## To setup and deploy
 
-For any of the subgraphs: `s-one-finance` or `bar` as `[subgraph]`
+For any of the subgraphs: `s-one-finance` as `[subgraph]`
 
 1. Run the `yarn run codegen:[subgraph]` command to prepare the TypeScript sources for the GraphQL (generated/schema) and the ABIs (generated/[ABI]/\*)
 2. [Optional] run the `yarn run build:[subgraph]` command to build the subgraph. Can be used to check compile errors before deploying.
@@ -90,4 +77,4 @@ We will add to this as development progresses.
 # Community Subgraphs
 
 1) croco-finance fork of this repo with slight modifications - [deployment](https://thegraph.com/explorer/subgraph/benesjan/sone-swap), [code](https://github.com/croco-finance/s-one-finance-subgraph)
-2) croco-finance dex-rewards-subgraph which tracks SLPs in MasterChef and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)
+2) croco-finance dex-rewards-subgraph which tracks SLPs in MasterFarmer and all the corresponding rewards individually. (can be used for analysis of user's positions) - [deployment](https://thegraph.com/explorer/subgraph/benesjan/dex-rewards-subgraph), [code](https://github.com/croco-finance/dex-rewards-subgraph)
