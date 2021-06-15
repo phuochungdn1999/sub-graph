@@ -14,7 +14,7 @@
         "remove-local": "graph remove --node http://localhost:8020/ danielpham765/soneswap",
         "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 danielpham765/soneswap",
 
-        "deploy:ethereum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
+        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
         
         "prepare:mainnet": "mustache config/mainnet.json exchange.template.yaml > exchange.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json exchange.template.yaml > exchange.yaml",

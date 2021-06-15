@@ -26,7 +26,7 @@ export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
 export const FACTORY_ADDRESS = Address.fromString('0xa3D17F45De1D6B0aF299182d7E490cf61fc1FDba')
 
-export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10434100)
+export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
 export const MASTER_FARMER_ADDRESS = Address.fromString('')
 
@@ -58,7 +58,7 @@ export const SONESWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0x00000000000
 
 export const USDT_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
-export const MASTER_FARMER_START_BLOCK = BigInt.fromI32(10750000)
+export const MASTER_FARMER_START_BLOCK = BigInt.fromI32(13546394)
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString('0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f')
 
