@@ -1,6 +1,6 @@
 specVersion: 0.0.3
 description: Timelock
-repository: https://github.com/S-ONE-Finance/soneswap-subgraph
+repository: https://github.com/S-ONE-Finance/subgraph
 schema:
   file: ./timelock.graphql
 dataSources:
