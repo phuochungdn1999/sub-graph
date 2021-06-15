@@ -10,11 +10,11 @@
         "codegen": "graph codegen exchange.yaml",
         "build": "graph build exchange.yaml",
         
-        "create-local": "graph create --node http://localhost:8020/ danielpham765/sone-swap",
-        "remove-local": "graph remove --node http://localhost:8020/ danielpham765/sone-swap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 danielpham765/sone-swap",
+        "create-local": "graph create --node http://localhost:8020/ danielpham765/soneswap",
+        "remove-local": "graph remove --node http://localhost:8020/ danielpham765/soneswap",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 danielpham765/soneswap",
 
-        "deploy:ethereum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/sone-finance-swap exchange.yaml",
+        "deploy:ethereum": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
         
         "prepare:mainnet": "mustache config/mainnet.json exchange.template.yaml > exchange.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json exchange.template.yaml > exchange.yaml",
