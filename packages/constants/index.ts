@@ -26,7 +26,7 @@ export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
 export const FACTORY_ADDRESS = Address.fromString('0xa3D17F45De1D6B0aF299182d7E490cf61fc1FDba')
 
-export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
+export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10434100)
 
 export const MASTER_FARMER_ADDRESS = Address.fromString('')
 

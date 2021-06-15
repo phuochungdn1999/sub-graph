@@ -21,7 +21,7 @@ import {
     BIG_INT_ONE_DAY_SECONDS,
     BIG_INT_ZERO,
     MASTER_FARMER_ADDRESS,
-    MASTER_CHEF_START_BLOCK,
+    MASTER_FARMER_START_BLOCK,
   } from 'const'
   import { History, MasterFarmer, Pool, PoolHistory, User } from '../generated/schema'
   import { getSonePrice, getUSDRate } from 'pricing'
@@ -326,7 +326,7 @@ import {
     }
   
     // Calculate SONE being paid out
-    if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
+    if (event.block.number.gt(MASTER_FARMER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
       const pending = user.amount
         .toBigDecimal()
         .times(pool.accSonePerShare.toBigDecimal())
@@ -474,7 +474,7 @@ import {
   
     const user = getUser(event.params.pid, event.params.user, event.block)
   
-    if (event.block.number.gt(MASTER_CHEF_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
+    if (event.block.number.gt(MASTER_FARMER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
       const pending = user.amount
         .toBigDecimal()
         .times(pool.accSonePerShare.toBigDecimal())

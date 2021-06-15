@@ -58,7 +58,7 @@ export const SONESWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('{{ soneswap_w
 
 export const USDT_ADDRESS = Address.fromString('{{ usdt_address }}')
 
-export const MASTER_FARMER_START_BLOCK = BigInt.fromI32(10750000)
+export const MASTER_FARMER_START_BLOCK = BigInt.fromI32(13546394)
 
 export const UNISWAP_FACTORY_ADDRESS = Address.fromString('{{ uniswap_factory_address }}')
 
