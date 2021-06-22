@@ -1,5 +1,5 @@
 specVersion: 0.0.3
-description: Exchange
+description: S-ONE Swap is a decentralized protocol for automated token exchange on Ethereum.
 repository: https://github.com/S-ONE-Finance/subgraph
 schema:
   file: ./exchange.graphql
@@ -21,8 +21,6 @@ dataSources:
       abis:
         - name: Factory
           file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
-        - name: Pair
-          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Pair.json
         - name: SoneToken
           file: ../../node_modules/@s-one-finance/core/build/contracts/SoneToken.json
         - name: ERC20
@@ -33,7 +31,7 @@ dataSources:
           file: ../../packages/abis/ERC20NameBytes.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
-          handler: onPairCreated
+          handler: handleNewPair
 templates:
   - kind: ethereum/contract
     name: Pair
@@ -44,19 +42,10 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
-      file: ./src/exchange/mappings/pair.ts
+      file: ./src/exchange/mappings/core.ts
       entities:
-        - Bundle
-        - Burn
-        - LiquidityPosition
-        - LiquidityPositionSnapshot
-        - Mint
         - Pair
-        - Swap
-        - Sync
         - Token
-        - Transaction
-        - User
       abis:
         - name: Pair
           file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Pair.json
@@ -64,12 +53,12 @@ templates:
           file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
       eventHandlers:
         - event: Mint(indexed address,uint256,uint256)
-          handler: onMint
+          handler: handleMint
         - event: Burn(indexed address,uint256,uint256,indexed address)
-          handler: onBurn
+          handler: handleBurn
         - event: Swap(indexed address,uint256,uint256,uint256,uint256,indexed address)
-          handler: onSwap
+          handler: handleSwap
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: onTransfer
+          handler: handleTransfer
         - event: Sync(uint112,uint112)
-          handler: onSync
+          handler: handleSync
