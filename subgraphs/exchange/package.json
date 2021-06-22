@@ -9,13 +9,10 @@
     "scripts": {
         "codegen": "graph codegen exchange.yaml",
         "build": "graph build exchange.yaml",
-        
-        "create-local": "graph create --node http://localhost:8020/ danielpham765/soneswap",
-        "remove-local": "graph remove --node http://localhost:8020/ danielpham765/soneswap",
-        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 danielpham765/soneswap",
-
+        "create-local": "graph create --node http://54.179.36.236:8020/ s-one-finance/soneswap",
+        "remove-local": "graph remove --node http://54.179.36.236:8020/ s-one-finance/soneswap",
+        "deploy-local": "graph deploy --node http://54.179.36.236:8020/ --ipfs http://54.179.36.236:5001/ s-one-finance/soneswap exchange.yaml",
         "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
-        
         "prepare:mainnet": "mustache config/mainnet.json exchange.template.yaml > exchange.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json exchange.template.yaml > exchange.yaml",
         "prepare:ropsten": "mustache config/ropsten.json exchange.template.yaml > exchange.yaml",

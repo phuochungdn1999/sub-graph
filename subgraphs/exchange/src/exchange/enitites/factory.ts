@@ -1,8 +1,14 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts'
+import { log } from '@graphprotocol/graph-ts'
 import { BIG_DECIMAL_ZERO, BIG_INT_ZERO, FACTORY_ADDRESS } from 'const'
 import { DayData, Factory } from '../../../generated/schema'
 
 export function getFactory(id: Address = FACTORY_ADDRESS): Factory {
+
+  log.debug('FACTORY_ADDRESS: {}', [
+    FACTORY_ADDRESS.toString()
+  ])
+
   let factory = Factory.load(id.toHex())
 
   if (factory === null) {
