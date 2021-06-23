@@ -1345,10 +1345,10 @@
   resolved "https://registry.yarnpkg.com/@repeaterjs/repeater/-/repeater-3.0.4.tgz#a04d63f4d1bf5540a41b01a921c9a7fddc3bd1ca"
   integrity sha512-AW8PKd6iX3vAZ0vA43nOUOnbq/X5ihgU+mSXXqunMkeQADGiqw/PY0JNeYtD5sr0PAy51YPgAPbDoeapv9r8WA==
 
-"@s-one-finance/core@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@s-one-finance/core/-/core-0.0.5.tgz#4188ceaf77388dbdbfed916505c0d396bd0f53b3"
-  integrity sha512-FqJaZqnY+2gD3XhTNSJT+hqQ1xj5XWOI5Vw3PDN5+zl/LLpFROjjP4T+sDEB+I0NxZLTbb2R97WQ/4kDt1nR3A==
+"@s-one-finance/core@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@s-one-finance/core/-/core-0.0.6.tgz#3f02a43f5ae679dff4c4ba8ddd7d48c9df7c6f64"
+  integrity sha512-BTt2yp4guizMLN2weqVja8jYZuvyAyznYx9yVmEUhAjWmDjIKrhhfxxNI4TAojpb16VIQ5xhatvzKZGauveeVw==
   dependencies:
     "@openzeppelin/contracts" "^3.1.0"
     "@openzeppelin/test-helpers" "^0.5.11"
@@ -2834,14 +2834,6 @@ asn1@~0.2.3:
   dependencies:
     safer-buffer "~2.1.0"
 
-assemblyscript@^0.19.2:
-  version "0.19.2"
-  resolved "https://registry.yarnpkg.com/assemblyscript/-/assemblyscript-0.19.2.tgz#952e185d170d5da3ee3a5314734f6244c3619488"
-  integrity sha512-0ETRv6oSOhqgPmf23KrD+111QL685IxY/k3UHlC7NzGK2VAi+3Em1U2E06zCPnb45tjUD86wBANlDJDGEZisBg==
-  dependencies:
-    binaryen "101.0.0-nightly.20210604"
-    long "^4.0.0"
-
 "assemblyscript@https://github.com/AssemblyScript/assemblyscript#36040d5b5312f19a025782b5e36663823494c2f3":
   version "0.6.0"
   resolved "https://github.com/AssemblyScript/assemblyscript#36040d5b5312f19a025782b5e36663823494c2f3"
@@ -3169,11 +3161,6 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.2.0.tgz#75f502eeaf9ffde42fc98829645be4ea76bd9e2d"
   integrity sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
-
-binaryen@101.0.0-nightly.20210604:
-  version "101.0.0-nightly.20210604"
-  resolved "https://registry.yarnpkg.com/binaryen/-/binaryen-101.0.0-nightly.20210604.tgz#3498a0a0c1108f3386b15ca79f1608425057db9e"
-  integrity sha512-aTgX1JDN8m3tTFK8g9hazJcEOdQl7mK4yVfElkKAh7q+TRUCaea4a2SMLr1z2xZL7s9N4lkrvrBblxRuEPvxWQ==
 
 binaryen@77.0.0-nightly.20190407:
   version "77.0.0-nightly.20190407"
