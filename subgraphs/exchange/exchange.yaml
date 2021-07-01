@@ -18,17 +18,18 @@ dataSources:
       file: ./src/exchange/mappings/factory.ts
       entities:
         - Factory
+        - Token
       abis:
         - name: Factory
           file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
-        - name: SoneToken
-          file: ../../node_modules/@s-one-finance/core/build/contracts/SoneToken.json
         - name: ERC20
           file: ../../node_modules/@s-one-finance/core/build/contracts/ERC20.json
         - name: ERC20SymbolBytes
           file: ../../packages/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
           file: ../../packages/abis/ERC20NameBytes.json
+        - name: SoneToken
+          file: ../../node_modules/@s-one-finance/core/build/contracts/SoneToken.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handleNewPair
