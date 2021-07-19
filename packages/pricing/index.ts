@@ -18,7 +18,7 @@ import {
 import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
 
 import { Factory as FactoryContract } from 'exchange/generated/Factory/Factory'
-import { Pair as PairContract } from 'exchange/generated/Factory/Pair'
+import { Pair as PairContract } from 'exchange/generated/templates/Pair/Pair'
 
 export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
   let usdt = BIG_DECIMAL_ONE
