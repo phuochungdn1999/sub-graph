@@ -24,10 +24,40 @@ import {
     MASTER_FARMER_START_BLOCK,
   } from 'const'
   import { History, MasterFarmer, Pool, PoolHistory, User } from '../generated/schema'
-  import { getSonePrice, getUSDRate } from 'pricing'
+  import { getSonePrice, getUSDRate } from '../../exchange/src/exchange/pricing'
   
-  import { ERC20 as ERC20Contract } from '../generated/MasterFarmer/ERC20'
   import { Pair as PairContract } from '../generated/MasterFarmer/Pair'
+
+  export function updateMasterFarmer(block: ethereum.Block): MasterFarmer {
+    let masterFarmer = MasterFarmer.load(MASTER_FARMER_ADDRESS.toHex())
+  
+      const contract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
+      masterFarmer = new MasterFarmer(MASTER_FARMER_ADDRESS.toHex())
+      masterFarmer.bonusMultiplier = contract.getMultiplier(block.number.minus(new BigInt(1)), block.number)
+      masterFarmer.bonusEndBlock = contract.FINISH_BONUS_AT_BLOCK()
+      masterFarmer.devaddr = contract.devaddr()
+      masterFarmer.migrator = contract.migrator()
+      masterFarmer.owner = contract.owner()
+      // poolInfo ...
+      masterFarmer.startBlock = contract.START_BLOCK()
+      masterFarmer.sone = contract.sone()
+      masterFarmer.sonePerBlock = contract.REWARD_PER_BLOCK()
+      masterFarmer.totalAllocPoint = contract.totalAllocPoint()
+      // userInfo ...
+      masterFarmer.poolCount = BIG_INT_ZERO
+  
+      masterFarmer.slpBalance = BIG_DECIMAL_ZERO
+      masterFarmer.slpAge = BIG_DECIMAL_ZERO
+      masterFarmer.slpAgeRemoved = BIG_DECIMAL_ZERO
+      masterFarmer.slpDeposited = BIG_DECIMAL_ZERO
+      masterFarmer.slpWithdrawn = BIG_DECIMAL_ZERO
+  
+      masterFarmer.updatedAt = block.timestamp
+  
+      masterFarmer.save()
+  
+    return masterFarmer as MasterFarmer
+  }
   
   function getMasterFarmer(block: ethereum.Block): MasterFarmer {
     let masterFarmer = MasterFarmer.load(MASTER_FARMER_ADDRESS.toHex())
