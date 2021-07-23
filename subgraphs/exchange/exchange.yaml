@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Factory
-    network: ropsten
+    network: mainnet
     source:
-      address: '0xB6EF230f01008e04b83E61807ed710F5BABc8Ddd'
+      address: '0xBb532DCB52D334b7826C94316D79F4B1496672F7'
       abi: Factory
-      startBlock: 10434101
+      startBlock: 50
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -36,7 +36,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: Pair
-    network: ropsten
+    network: mainnet
     source:
       abi: Pair
     mapping:
