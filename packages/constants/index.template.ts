@@ -28,7 +28,7 @@ export const FACTORY_ADDRESS = Address.fromString('{{ factory_address }}')
 
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
-export const MASTER_FARMER_ADDRESS = Address.fromString('{{ masterchef_address }}')
+export const MASTER_FARMER_ADDRESS = Address.fromString('{{ masterfarmer_address }}')
 
 export const SONE_TOKEN_ADDRESS = Address.fromString('{{ sone_token_address }}')
 

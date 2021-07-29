@@ -24,11 +24,11 @@ export const BIG_INT_ZERO = BigInt.fromI32(0)
 
 export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
-export const FACTORY_ADDRESS = Address.fromString('0xBb532DCB52D334b7826C94316D79F4B1496672F7')
+export const FACTORY_ADDRESS = Address.fromString('0xcd9a70C13C88863ECE51B302a77D2EB98fBBBD65')
 
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
-export const MASTER_FARMER_ADDRESS = Address.fromString('')
+export const MASTER_FARMER_ADDRESS = Address.fromString('0x093514489C4b42Ff54f942f4F91De3F89c797aAb')
 
 export const SONE_TOKEN_ADDRESS = Address.fromString('0x8e628fd5D2B8a0997216132F24BaB4F8ad2e3e22')
 
