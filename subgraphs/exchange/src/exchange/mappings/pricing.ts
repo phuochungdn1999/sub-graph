@@ -4,10 +4,10 @@ import { Pair, Token, Bundle } from '../../../generated/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
-const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
-const USDC_WETH_PAIR = '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc' // created 10008355
-const DAI_WETH_PAIR = '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11' // created block 10042267
-const USDT_WETH_PAIR = '0x0efb8103f5e558954348fbd2716fd775da2e4fb2' // created block 10570733
+const WETH_ADDRESS = '0x5b62636c6d2b79fe47b131f0afee4a71adf9723b'
+const USDC_WETH_PAIR = '0x45B9661FA80f126Ded6fA678d7858008776902cD'
+const DAI_WETH_PAIR = '0xa0e7F59981C7191Eb3f9C1B707cfcDfff04b06aF' 
+const USDT_WETH_PAIR = '0x2e0C719a8cb6D49ea2779e50A0CbBA214a1c30e5'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -41,10 +41,10 @@ export function getEthPriceInUSD(): BigDecimal {
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-  '0xc778417e063141139fce010982780140aa0cd5ab', // WETH
-  '0xad6d458402f60fd3bd25163575031acdce07538d', // DAI
-  '0x0d9c8723b343a8368bebe0b5e89273ff8d712e3c', // USDC
-  '0x516de3a7a567d81737e3a46ec4ff9cfd1fcb0136', // USDT
+  '0x5b62636c6d2b79fe47b131f0afee4a71adf9723b', // WETH
+  '0xf0e4024f29fd73f2c1757b7d9cba93de76100fef', // DAI
+  '0x78ba67047ab65c73d699b6ee54620e6c46f97840', // USDC
+  '0x635bcc6a77d9b42b0483f2ded34b9f1a97a221df', // USDT
   // '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
   // '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643', // cDAI
   // '0x39aa39c021dfbae8fac545936693ac917d5e7563', // cUSDC
@@ -79,6 +79,10 @@ export function findEthPerToken(token: Token): BigDecimal {
   }
   // loop through whitelist and check if paired with any
   for (let i = 0; i < WHITELIST.length; ++i) {
+    log.debug(`Pair address of {} and {}`, [token.id, WHITELIST[i]])
+    if (token.id == WHITELIST[i]) {
+      continue
+    }
     let pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[i]))
     log.info(`Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
     if (pairAddress.toHexString() != ADDRESS_ZERO) {
