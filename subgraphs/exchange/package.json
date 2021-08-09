@@ -15,7 +15,7 @@
         "remove:ganache": "graph remove --node https://graph-node-2.s-one.finance/8020/ s-one-finance/soneswap",
         "deploy:local": "graph deploy --node http://54.179.36.236:8020/ --ipfs http://54.179.36.236:5001/ s-one-finance/soneswap exchange.yaml",
         "deploy:ganache": "graph deploy --node https://graph-node-2.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/soneswap exchange.yaml",
-        "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/soneswap exchange.yaml",
+        "deploy": "yarn graph deploy --studio soneswap exchange.yaml",
         "prepare:mainnet": "mustache config/mainnet.json exchange.template.yaml > exchange.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json exchange.template.yaml > exchange.yaml",
         "prepare:ropsten": "mustache config/ropsten.json exchange.template.yaml > exchange.yaml",
