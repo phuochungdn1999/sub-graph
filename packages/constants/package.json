@@ -12,6 +12,7 @@
     "prepare:mainnet": "mustache config/mainnet.json index.template.ts > index.ts",
     "prepare:rinkeby": "mustache config/rinkeby.json index.template.ts > index.ts",
     "prepare:ropsten": "mustache config/ropsten.json index.template.ts > index.ts",
-    "prepare:private": "mustache config/private.json index.template.ts > index.ts"
+    "prepare:private": "mustache config/private.json index.template.ts > index.ts",
+    "prepare:local": "mustache config/local.json index.template.ts > index.ts"
   }
 }
