@@ -4,10 +4,21 @@ import { Pair, Token, Bundle } from '../../../generated/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
+// Ropsten addresses
 const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
-const USDC_WETH_PAIR = '0x2B76091165D46115676Ba578405d25186c66201F'
-const DAI_WETH_PAIR = '0x2Fa2ab780cBA6Cb1971Eb013F808640b8D2657c6' 
-const USDT_WETH_PAIR = '0x886Cd5baE018384184F95fB1c9A447EbAA83F9b8'
+const USDC_WETH_PAIR = '0xc9244d7b95eb24a7ec1b343b879b2f194ac7f63f'
+const DAI_WETH_PAIR = '0xd2010f84be6c71e4c8627148d39be5a72cb93a80' 
+const USDT_WETH_PAIR = '0x62279b34bd56799977100f0222508dcd1dad3afe'
+// const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
+// const USDC_WETH_PAIR = '0xc9244d7b95eb24a7ec1b343b879b2f194ac7f63f'
+// const DAI_WETH_PAIR = '0xd2010f84be6c71e4c8627148d39be5a72cb93a80' 
+// const USDT_WETH_PAIR = '0x62279b34bd56799977100f0222508dcd1dad3afe'
+
+// Ganache addresses
+// const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
+// const USDC_WETH_PAIR = '0xEc4e894AfB353844FCfCA6654eeC02c6190C4081'
+// const DAI_WETH_PAIR = '0x6E98Da3C3a31E0a48188319c18bd8Bfe2e968DBB' 
+// const USDT_WETH_PAIR = '0x686F00AEb7c59374a56BBc62fB521c50744C9D2A'
 
 export function getEthPriceInUSD(): BigDecimal {
   // fetch eth prices for each stablecoin
@@ -15,6 +26,30 @@ export function getEthPriceInUSD(): BigDecimal {
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
   let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
 
+  // // all 3 have been created
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve0)
+  //   let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+  //   let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+  //   let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+  //   return daiPair.token0Price
+  //     .times(daiWeight)
+  //     .plus(usdcPair.token0Price.times(usdcWeight))
+  //     .plus(usdtPair.token1Price.times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdtPair.reserve1)
+  //   let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+  //   let usdcWeight = usdtPair.reserve1.div(totalLiquidityETH)
+  //   return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdcWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   return usdtPair.token0Price
+  // } else {
+  //   return ZERO_BD
+  // }
+
+  // log.debug(`Pricing: daiPair: {} usdcPair: {} usdtPair: {}`, [daiPair?.id.toString(), usdcPair?.id.toString(), usdtPair?.id.toString()])
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
     let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve0)
@@ -37,15 +72,83 @@ export function getEthPriceInUSD(): BigDecimal {
   } else {
     return ZERO_BD
   }
+
+
+  // all 3 have been created
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   let daiPairToken0: Token = Token.load(daiPair.token0) as Token
+  //   let usdcPairToken0: Token = Token.load(usdcPair.token0) as Token
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  
+  //   let daiReserve = daiPairToken0.symbol == "DAI" ? daiPair.reserve0 : daiPair.reserve1
+  //   let usdcReserve = usdcPairToken0.symbol == "USDC" ? usdcPair.reserve0 : usdcPair.reserve1
+  //   let usdtReserve = usdtPairToken0.symbol == "USDT" ? usdtPair.reserve0 : usdtPair.reserve1
+  
+  //   let daiPrice = daiPairToken0.symbol == "DAI" ? daiPair.token0Price : daiPair.token1Price
+  //   let usdcPrice = usdcPairToken0.symbol == "USDC" ? usdcPair.token0Price : usdcPair.token1Price
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   let totalLiquidityETH = daiReserve.plus(usdcReserve).plus(usdtReserve)
+  //   let daiWeight = daiReserve.div(totalLiquidityETH)
+  //   let usdcWeight = usdcReserve.div(totalLiquidityETH)
+  //   let usdtWeight = usdtReserve.div(totalLiquidityETH)
+
+  //   log.debug(`Pricing: daiPrice.times(daiWeight): {}`, [daiPrice.times(daiWeight).toString()])
+  //   log.debug(`Pricing: usdcPrice.times(usdcWeight): {}`, [usdcPrice.times(usdcWeight).toString()])
+  //   log.debug(`Pricing: usdtPrice.times(usdtWeight): {}`, [usdtPrice.times(usdtWeight).toString()])
+
+  //   return daiPrice
+  //     .times(daiWeight)
+  //     .plus(usdcPrice.times(usdcWeight))
+  //     .plus(usdtPrice.times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   let daiPairToken0: Token = Token.load(daiPair.token0) as Token
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  
+  //   let daiReserve = daiPairToken0.symbol == "DAI" ? daiPair.reserve0 : daiPair.reserve1
+  //   let usdtReserve = usdtPairToken0.symbol == "USDT" ? usdtPair.reserve0 : usdtPair.reserve1
+  
+  //   let daiPrice = daiPairToken0.symbol == "DAI" ? daiPair.token0Price : daiPair.token1Price
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   let totalLiquidityETH = daiReserve.plus(usdtReserve)
+  //   let daiWeight = daiReserve.div(totalLiquidityETH)
+  //   let usdtWeight = usdtReserve.div(totalLiquidityETH)
+
+  //   log.debug(`Pricing: daiPrice.times(daiWeight): {}`, [daiPrice.times(daiWeight).toString()])
+  //   log.debug(`Pricing: usdtPrice.times(usdtWeight): {}`, [usdtPrice.times(usdtWeight).toString()])
+
+  //   return daiPrice.times(daiWeight).plus(usdtPrice.times(usdtWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   log.debug(`Pricing: usdtPrice: {}`, [usdtPrice.toString()])
+
+  //   return usdtPrice
+  // } else {
+  //   return ZERO_BD
+  // }
 }
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
+  // Ropsten addresses
   '0xc778417e063141139fce010982780140aa0cd5ab', // WETH
-  '0xc2118d4d90b274016cb7a54c03ef52e6c537d957', // DAI
-  '0x0d9c8723b343a8368bebe0b5e89273ff8d712e3c', // USDC
-  '0x516de3a7a567d81737e3a46ec4ff9cfd1fcb0136', // USDT
+  '0x05775a51a8343a417b8fb4d347dab16a8ed2c27e', // DAI
+  '0x667dd964a735175c6e492cdd2a2a8b58a2333ece', // USDC
+  '0xb676317a4045cf9c338be8b837b983c23d8a6810', // USDT
   '0x57bb30bdb0d449bf687ed648acf2467f045c8e74', // SONE
+
+  // Ganache addresses
+  // '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B', // WETH
+  // '0xF0e4024f29Fd73F2c1757b7d9CbA93de76100feF', // DAI
+  // '0x78bA67047aB65c73d699B6eE54620E6c46f97840', // USDC
+  // '0x635BCc6A77d9B42B0483f2dED34b9f1A97A221Df', // USDT
+  // '0x337006106E7Dacd7D84b91F9BCB6cB1182837870', // SONE
+
   // '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
   // '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643', // cDAI
   // '0x39aa39c021dfbae8fac545936693ac917d5e7563', // cUSDC
@@ -65,10 +168,10 @@ let WHITELIST: string[] = [
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
-let MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('400000')
+let MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('400')
 
 // minimum liquidity for price to get tracked
-let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('2')
+let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0.01')
 
 /**
  * Search through graph to find derived Eth per token.
@@ -80,19 +183,22 @@ export function findEthPerToken(token: Token): BigDecimal {
   }
   // loop through whitelist and check if paired with any
   for (let i = 0; i < WHITELIST.length; ++i) {
-    log.debug(`Pair address of {} and {}`, [token.id, WHITELIST[i]])
     if (token.id == WHITELIST[i]) {
       continue
     }
     let pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[i]))
-    log.info(`Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
+    // log.debug(`Pricing: Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
     if (pairAddress.toHexString() != ADDRESS_ZERO) {
       let pair = Pair.load(pairAddress.toHexString())
+      // log.debug(`Pricing: reserveETH: {}`, [pair.reserveETH.toString()])
+      // log.debug(`Pricing: MINIMUM_LIQUIDITY_THRESHOLD_ETH: {}`, [MINIMUM_LIQUIDITY_THRESHOLD_ETH.toString()])
       if (pair.token0 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
+        // log.debug(`pair.token0 == token.id`, [])
         let token1 = Token.load(pair.token1)
         return pair.token1Price.times(token1.derivedETH as BigDecimal) // return token1 per our token * Eth per token 1
       }
       if (pair.token1 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
+        // log.debug(`pair.token1 == token.id`, [])
         let token0 = Token.load(pair.token0)
         return pair.token0Price.times(token0.derivedETH as BigDecimal) // return token0 per our token * ETH per token 0
       }

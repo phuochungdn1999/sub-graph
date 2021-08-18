@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: ropsten
     source:
-      address: '0xe0a9cC78ca137F06fa8F7B6815e6CfEa5391c48E'
+      address: '0x7b40ee1cC614c70C988C7AcBf5e1ddc935d9EAB1'
       abi: Factory
-      startBlock: 10767480
+      startBlock: 10861280
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
