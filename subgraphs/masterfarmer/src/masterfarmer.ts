@@ -184,7 +184,7 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
 }
 
 export function add(event: Add): void {
-  log.info('Param event add #{}', [
+  log.info('Param event add: #{}---#{}---#{}', [
     event.params.allocPoint.toString(),
     event.params.lpToken.toHex(),
     event.params.withUpdate ? 'true' : 'false',
@@ -206,9 +206,8 @@ export function add(event: Add): void {
   masterFarmer.save()
 }
 
-// Calls
 export function set(event: Set): void {
-  log.info('Param event set #{}', [
+  log.info('Param event set #{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.allocPoint.toString(),
     event.params.withUpdate ? 'true' : 'false',
@@ -266,7 +265,7 @@ export function dev(event: Dev): void {
 }
 
 export function deposit(event: Deposit): void {
-  log.info('Param event deposit #{}', [
+  log.info('Param event deposit #{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.amount.toString(),
     event.params.user.toHex(),
@@ -381,7 +380,7 @@ export function deposit(event: Deposit): void {
 }
 
 export function withdraw(event: Withdraw): void {
-  log.info('Param event withdraw #{}', [
+  log.info('Param event withdraw #{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.amount.toString(),
     event.params.user.toHex(),
@@ -506,7 +505,7 @@ export function withdraw(event: Withdraw): void {
 }
 
 export function emergencyWithdraw(event: EmergencyWithdraw): void {
-  log.info('Param event emergencyWithdraw #{}', [
+  log.info('Param event emergencyWithdraw #{}---#{}---#{}', [
     event.params.user.toHex(),
     event.params.amount.toString(),
     event.params.pid.toString(),
@@ -527,14 +526,17 @@ export function emergencyWithdraw(event: EmergencyWithdraw): void {
 }
 
 export function ownershipTransferred(event: OwnershipTransferred): void {
-  log.info('Param event emergencyWithdraw #{}', [
+  log.info('Param event ownershipTransferred #{}---#{}', [
     event.params.previousOwner.toHex(),
     event.params.newOwner.toHex(),
   ])
+  const masterFarmer = getMasterFarmer(event.block)
+  masterFarmer.owner = event.params.newOwner
+  masterFarmer.save()
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event emergencyWithdraw #{}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),
@@ -552,11 +554,26 @@ export function sendSoneReward(event: SendSoneReward): void {
 }
 
 export function handleBlock(block: ethereum.Block): void {
+  log.info('Param handleBlock #{}', [block.number.toString()])
   let masterFarmer = MasterFarmer.load(MASTER_FARMER_ADDRESS.toHex())
 
   if (masterFarmer !== null) {
+    // Update masterfamermer bonusMultiplier
+    log.info('Typeof aaaaa #{}', [typeof masterFarmer.pools])
     const contract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
     masterFarmer.bonusMultiplier = contract.getMultiplier(block.number.minus(BIG_INT_ONE), block.number)
     masterFarmer.save()
+    // Update pending reward
+    // const aaa = masterFarmer.pools
+    // if(aaa.length){
+    //   log.debug('JSON parse = {}', [
+    //     aaa[0]
+    //   ])
+    // }
+    // const poolLength = Number(masterFarmer.poolCount.toString())
+    // for (let i = 0; i < poolLength; i++) {
+    //   let pool = getPool(BigInt.fromI32(i), block)
+
+    // }
   }
 }
