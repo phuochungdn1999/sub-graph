@@ -13,7 +13,11 @@
     "usdt_address": "0x0000000000000000000000000000000000000000",
     "uniswap_factory_address": "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f",
     "uniswap_weth_usdt_pair_address": "0x0000000000000000000000000000000000000000",
-    "uniswap_sone_eth_pair_address": "0x0000000000000000000000000000000000000000",  // ko dùng
+    "uniswap_sone_eth_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sone_usdt_pair_address": "0x0000000000000000000000000000000000000000",
-    "min_liquidity_threshold": "0" // ko dùng
+    "min_liquidity_threshold": "0", // ko dùng
+    "master_farmer_start_block": "0",
+    "uniswap_sone_eth_start_block": "0",
+    "sone_factory_start_block": "0",
+    "sone_usdt_pair_start_block": "0"
 }

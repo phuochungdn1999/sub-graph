@@ -13,7 +13,11 @@
     "usdt_address": "0x393397Baae01Dc19678220E4D3Fd34FDA4FeBd1D",
     "uniswap_factory_address": "0x16373A406828Bf5d3dDF071FC24b682E9057b9A5",
     "uniswap_weth_usdt_pair_address": "0xc061f7d573bcd723deaf4c333c63be0486248508",
-    "uniswap_sone_eth_pair_address": "0x0000000000000000000000000000000000000000",
+    "uniswap_sone_eth_pair_address": "0x96C6Ee57b7fc2677e96E86f5579Ff0542444e3f5",
     "uniswap_sone_usdt_pair_address": "0xd3c3830818845153d1f54a066a0e12ef40dd8267",
-    "min_liquidity_threshold": "0"
+    "min_liquidity_threshold": "0",
+    "master_farmer_start_block": "0",
+    "uniswap_sone_eth_start_block": "0",
+    "sone_factory_start_block": "0",
+    "sone_usdt_pair_start_block": "0"
 }

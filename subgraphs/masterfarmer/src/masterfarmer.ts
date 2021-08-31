@@ -150,6 +150,7 @@ function getPoolHistory(pool: Pool, block: ethereum.Block): PoolHistory {
     history.slpWithdrawn = BIG_DECIMAL_ZERO
     history.timestamp = block.timestamp
     history.block = block.number
+    history.userCount = BIG_INT_ZERO
     history.entryUSD = BIG_DECIMAL_ZERO
     history.exitUSD = BIG_DECIMAL_ZERO
     history.soneHarvested = BIG_DECIMAL_ZERO
@@ -299,25 +300,6 @@ export function deposit(event: Deposit): void {
     pool.userCount = pool.userCount.plus(BIG_INT_ONE)
   }
 
-  // Calculate SONE being paid out
-  if (event.block.number.gt(MASTER_FARMER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
-    const pending = user.amount
-      .toBigDecimal()
-      .times(pool.accSonePerShare.toBigDecimal())
-      .div(BIG_DECIMAL_1E12)
-      .minus(user.rewardDebt.toBigDecimal())
-      .div(BIG_DECIMAL_1E18)
-    if (pending.gt(BIG_DECIMAL_ZERO)) {
-      const soneHarvestedUSD = pending.times(getSonePrice(event.block))
-      user.soneHarvested = user.soneHarvested.plus(pending)
-      user.soneHarvestedUSD = user.soneHarvestedUSD.plus(soneHarvestedUSD)
-      pool.soneHarvested = pool.soneHarvested.plus(pending)
-      pool.soneHarvestedUSD = pool.soneHarvestedUSD.plus(soneHarvestedUSD)
-      poolHistory.soneHarvested = pool.soneHarvested
-      poolHistory.soneHarvestedUSD = pool.soneHarvestedUSD
-    }
-  }
-
   user.amount = userInfo.value0
   user.rewardDebt = userInfo.value1
 
@@ -411,24 +393,6 @@ export function withdraw(event: Withdraw): void {
   pool.updatedAt = event.block.timestamp
 
   const user = getUser(event.params.pid, event.params.user, event.block)
-
-  if (event.block.number.gt(MASTER_FARMER_START_BLOCK) && user.amount.gt(BIG_INT_ZERO)) {
-    const pending = user.amount
-      .toBigDecimal()
-      .times(pool.accSonePerShare.toBigDecimal())
-      .div(BIG_DECIMAL_1E12)
-      .minus(user.rewardDebt.toBigDecimal())
-      .div(BIG_DECIMAL_1E18)
-    if (pending.gt(BIG_DECIMAL_ZERO)) {
-      const soneHarvestedUSD = pending.times(getSonePrice(event.block))
-      user.soneHarvested = user.soneHarvested.plus(pending)
-      user.soneHarvestedUSD = user.soneHarvestedUSD.plus(soneHarvestedUSD)
-      pool.soneHarvested = pool.soneHarvested.plus(pending)
-      pool.soneHarvestedUSD = pool.soneHarvestedUSD.plus(soneHarvestedUSD)
-      poolHistory.soneHarvested = pool.soneHarvested
-      poolHistory.soneHarvestedUSD = pool.soneHarvestedUSD
-    }
-  }
 
   const userInfo = masterFarmerContract.userInfo(event.params.pid, event.params.user)
 
@@ -536,21 +500,31 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}-=={}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),
     event.params.lockAmount.toString(),
+    getSonePrice(event.block).toString()
   ])
   const masterFarmerContract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
   const userInfo = masterFarmerContract.userInfo(event.params.pid, event.params.user)
   const user = getUser(event.params.pid, event.params.user, event.block)
+  const pool = getPool(event.params.pid, event.block)
+  const poolHistory = getPoolHistory(pool, event.block)
   const amount = event.params.amount.toBigDecimal().div(BIG_DECIMAL_1E18)
   const soneHarvestedUSD = amount.times(getSonePrice(event.block))
+  // const soneHarvestedUSD = amount.times(BigDecimal.fromString('10'))
   user.soneHarvested = user.soneHarvested.plus(amount)
-  user.soneHarvestedUSD = user.soneHarvested.plus(soneHarvestedUSD)
+  user.soneHarvestedUSD = user.soneHarvestedUSD.plus(soneHarvestedUSD)
   user.rewardDebt = userInfo.value1
+  pool.soneHarvested = pool.soneHarvested.plus(amount)
+  pool.soneHarvestedUSD = pool.soneHarvestedUSD.plus(soneHarvestedUSD)
+  poolHistory.soneHarvested = pool.soneHarvested
+  poolHistory.soneHarvestedUSD = pool.soneHarvestedUSD
   user.save()
+  pool.save()
+  poolHistory.save()
 }
 
 export function handleBlock(block: ethereum.Block): void {
@@ -559,21 +533,8 @@ export function handleBlock(block: ethereum.Block): void {
 
   if (masterFarmer !== null) {
     // Update masterfamermer bonusMultiplier
-    log.info('Typeof aaaaa #{}', [typeof masterFarmer.pools])
     const contract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
     masterFarmer.bonusMultiplier = contract.getMultiplier(block.number.minus(BIG_INT_ONE), block.number)
     masterFarmer.save()
-    // Update pending reward
-    // const aaa = masterFarmer.pools
-    // if(aaa.length){
-    //   log.debug('JSON parse = {}', [
-    //     aaa[0]
-    //   ])
-    // }
-    // const poolLength = Number(masterFarmer.poolCount.toString())
-    // for (let i = 0; i < poolLength; i++) {
-    //   let pool = getPool(BigInt.fromI32(i), block)
-
-    // }
   }
 }

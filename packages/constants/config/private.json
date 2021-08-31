@@ -15,5 +15,9 @@
     "uniswap_weth_usdt_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sone_eth_pair_address": "0x0000000000000000000000000000000000000000",
     "uniswap_sone_usdt_pair_address": "0x0000000000000000000000000000000000000000",
-    "min_liquidity_threshold": "0"
+    "min_liquidity_threshold": "0",
+    "master_farmer_start_block": "0",
+    "uniswap_sone_eth_start_block": "0",
+    "sone_factory_start_block": "0",
+    "sone_usdt_pair_start_block": "0"
 }

@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: MasterFarmer
-    network: mainnet
+    network: ropsten
     source:
-      address: '0x0Dfb74dFB7b0D81B89AE7885DA3FdfBFdD422271'
+      address: '0xfB3bEEE96FA08c2CAb70E6DbE34084A99B47b9aD'
       abi: MasterFarmer
-      startBlock: 2
+      startBlock: 10897615
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

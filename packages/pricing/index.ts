@@ -6,8 +6,10 @@ import {
   BIG_DECIMAL_ZERO,
   FACTORY_ADDRESS,
   SONESWAP_WETH_USDT_PAIR_ADDRESS,
+  SONE_FACTORY_START_BLOCK,
   SONE_TOKEN_ADDRESS,
   SONE_USDT_PAIR_ADDRESS,
+  SONE_USDT_PAIR_START_BLOCK,
   UNISWAP_FACTORY_ADDRESS,
   UNISWAP_SONE_ETH_PAIR_FIRST_LIQUDITY_BLOCK,
   UNISWAP_SONE_USDT_PAIR_ADDRESS,
@@ -17,15 +19,13 @@ import {
 } from 'const'
 import { Address, BigDecimal, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
 
-import { Factory as FactoryContract } from 'exchange/generated/Factory/Factory'
+import { Factory as FactoryContract } from 'exchange/generated/templates/Pair/Factory'
 import { Pair as PairContract } from 'exchange/generated/templates/Pair/Pair'
 
 export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
   let usdt = BIG_DECIMAL_ONE
-
   if (token != USDT_ADDRESS) {
-    // TODO: config after IDO time
-    let address = block.number.le(BigInt.fromI32(10829344))
+    let address = block.number.le(SONE_FACTORY_START_BLOCK)
       ? UNISWAP_WETH_USDT_PAIR_ADDRESS
       : SONESWAP_WETH_USDT_PAIR_ADDRESS
 
@@ -41,6 +41,11 @@ export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
 
     const ethPriceUSD = reserve1.div(reserve0).div(BIG_DECIMAL_1E6).times(BIG_DECIMAL_1E18)
 
+    log.info('getUSDRate-----#{}-{}', [
+      tokenPriceETH.toString(),
+      ethPriceUSD.toString()
+    ])
+
     return ethPriceUSD.times(tokenPriceETH)
   }
 
@@ -48,12 +53,13 @@ export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
 }
 
 export function getEthRate(token: Address, block: ethereum.Block): BigDecimal {
+  log.info('bbbb====', [])
+
   let eth = BIG_DECIMAL_ONE
 
   if (token != WETH_ADDRESS) {
-    // TODO: config after IDO time
     const factory = FactoryContract.bind(
-      block.number.le(BigInt.fromI32(10829344)) ? UNISWAP_FACTORY_ADDRESS : FACTORY_ADDRESS
+      block.number.le(SONE_FACTORY_START_BLOCK) ? UNISWAP_FACTORY_ADDRESS : FACTORY_ADDRESS
     )
 
     const address = factory.getPair(token, WETH_ADDRESS)
@@ -79,19 +85,17 @@ export function getEthRate(token: Address, block: ethereum.Block): BigDecimal {
 }
 
 export function getSonePrice(block: ethereum.Block): BigDecimal {
-  // TODO: config after IDO time
   if (block.number.lt(UNISWAP_SONE_ETH_PAIR_FIRST_LIQUDITY_BLOCK)) {
     // If before uniswap sone-eth pair creation and liquidity added, return zero
     return BIG_DECIMAL_ZERO
-    // TODO: config after IDO time
-  } else if (block.number.lt(BigInt.fromI32(10800029))) {
+  } else if (block.number.lt(SONE_USDT_PAIR_START_BLOCK)) {
+    log.info('aaaa====', [])
     // Else if before uniswap sone-usdt pair creation (get price from eth sone-eth pair above)
     return getUSDRate(SONE_TOKEN_ADDRESS, block)
   } else {
     // Else get price from either uni or sone usdt pair depending on space-time
-    // TODO: config after IDO time
     const pair = PairContract.bind(
-      block.number.le(BigInt.fromI32(10829344)) ? UNISWAP_SONE_USDT_PAIR_ADDRESS : SONE_USDT_PAIR_ADDRESS
+      block.number.le(SONE_FACTORY_START_BLOCK) ? UNISWAP_SONE_USDT_PAIR_ADDRESS : SONE_USDT_PAIR_ADDRESS
     )
     const reserves = pair.getReserves()
     return reserves.value1
