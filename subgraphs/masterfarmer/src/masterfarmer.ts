@@ -500,7 +500,7 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}-=={}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),

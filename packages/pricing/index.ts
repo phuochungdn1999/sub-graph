@@ -41,11 +41,6 @@ export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
 
     const ethPriceUSD = reserve1.div(reserve0).div(BIG_DECIMAL_1E6).times(BIG_DECIMAL_1E18)
 
-    log.info('getUSDRate-----#{}-{}', [
-      tokenPriceETH.toString(),
-      ethPriceUSD.toString()
-    ])
-
     return ethPriceUSD.times(tokenPriceETH)
   }
 
@@ -53,8 +48,6 @@ export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
 }
 
 export function getEthRate(token: Address, block: ethereum.Block): BigDecimal {
-  log.info('bbbb====', [])
-
   let eth = BIG_DECIMAL_ONE
 
   if (token != WETH_ADDRESS) {
@@ -89,7 +82,6 @@ export function getSonePrice(block: ethereum.Block): BigDecimal {
     // If before uniswap sone-eth pair creation and liquidity added, return zero
     return BIG_DECIMAL_ZERO
   } else if (block.number.lt(SONE_USDT_PAIR_START_BLOCK)) {
-    log.info('aaaa====', [])
     // Else if before uniswap sone-usdt pair creation (get price from eth sone-eth pair above)
     return getUSDRate(SONE_TOKEN_ADDRESS, block)
   } else {
@@ -98,10 +90,16 @@ export function getSonePrice(block: ethereum.Block): BigDecimal {
       block.number.le(SONE_FACTORY_START_BLOCK) ? UNISWAP_SONE_USDT_PAIR_ADDRESS : SONE_USDT_PAIR_ADDRESS
     )
     const reserves = pair.getReserves()
-    return reserves.value1
+    const token0 = pair.token0()
+    if(token0 == SONE_TOKEN_ADDRESS){
+      return reserves.value1
       .toBigDecimal()
-      .times(BIG_DECIMAL_1E18)
-      .div(reserves.value0.toBigDecimal())
       .div(BIG_DECIMAL_1E6)
+      .div(reserves.value0.toBigDecimal().div(BIG_DECIMAL_1E18))
+    }
+    return reserves.value0
+      .toBigDecimal()
+      .div(BIG_DECIMAL_1E6)
+      .div(reserves.value1.toBigDecimal().div(BIG_DECIMAL_1E18))
   }
 }
