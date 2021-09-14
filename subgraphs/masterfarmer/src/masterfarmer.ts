@@ -500,12 +500,11 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}---#{}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),
-    event.params.lockAmount.toString(),
-    getSonePrice(event.block).toString()
+    event.params.lockAmount.toString()
   ])
   const masterFarmerContract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
   const userInfo = masterFarmerContract.userInfo(event.params.pid, event.params.user)
@@ -514,7 +513,6 @@ export function sendSoneReward(event: SendSoneReward): void {
   const poolHistory = getPoolHistory(pool, event.block)
   const amount = event.params.amount.toBigDecimal().div(BIG_DECIMAL_1E18)
   const soneHarvestedUSD = amount.times(getSonePrice(event.block))
-  // const soneHarvestedUSD = amount.times(BigDecimal.fromString('10'))
   user.soneHarvested = user.soneHarvested.plus(amount)
   user.soneHarvestedUSD = user.soneHarvestedUSD.plus(soneHarvestedUSD)
   user.rewardDebt = userInfo.value1
