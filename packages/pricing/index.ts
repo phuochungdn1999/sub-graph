@@ -81,23 +81,49 @@ export function getEthPriceInUSD(): BigDecimal {
   const usdtPair = PairContract.bind(Address.fromString(USDT_WETH_PAIR))
 
   const reserveDAIETH: BigDecimal[] = getReservePairETH(daiPair, BigInt.fromI32(18))
-  const daiInDaiPair = reserveDAIETH[0]
-  const wethInDaiPair = reserveDAIETH[1]
+  const daiInDaiPair = reserveDAIETH[0] // 3333.9315925102037
+  const wethInDaiPair = reserveDAIETH[1] // 3.4854929201922125
 
   const reserveUSDCETH: BigDecimal[] = getReservePairETH(usdcPair, BigInt.fromI32(6))
-  const usdcInUSDCPair = reserveUSDCETH[0]
-  const wethInUSDCPair = reserveUSDCETH[1]
+  const usdcInUSDCPair = reserveUSDCETH[0] // 2552.551559
+  const wethInUSDCPair = reserveUSDCETH[1] // 1.5010090492545534
 
   const reserveUSDTETH: BigDecimal[] = getReservePairETH(usdtPair, BigInt.fromI32(6))
-  const usdtInUSDTPair = reserveUSDTETH[0]
-  const wethInUSDTPair = reserveUSDTETH[1]
+  const usdtInUSDTPair = reserveUSDTETH[0] // 3674.875997
+  const wethInUSDTPair = reserveUSDTETH[1] // 0.9079877021261429
 
   // all 3 have been created
+  // develop
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   const totalLiquidityETH = wethInDaiPair.plus(wethInUSDCPair).plus(wethInUSDTPair) // 5.894489671572909
+  //   const daiWeight = daiInDaiPair.div(totalLiquidityETH) // 565.6013969434209
+  //   const usdcWeight = usdcInUSDCPair.div(totalLiquidityETH) // 433.0402971626324
+  //   const usdtWeight = usdtInUSDTPair.div(totalLiquidityETH) // 623.4426051711753
+  //   return daiInDaiPair
+  //     .div(wethInDaiPair)
+  //     .times(daiWeight)
+  //     .plus(usdcInUSDCPair.div(wethInUSDCPair).times(usdcWeight))
+  //     .plus(usdtInUSDTPair.div(wethInUSDTPair).times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   const totalLiquidityETH = wethInDaiPair.plus(wethInUSDTPair)
+  //   const daiWeight = daiInDaiPair.div(totalLiquidityETH)
+  //   const usdtWeight = usdtInUSDTPair.div(totalLiquidityETH)
+  //   return daiInDaiPair.div(wethInDaiPair).times(daiWeight).plus(usdtInUSDTPair.div(wethInUSDTPair).times(usdtWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   return usdtInUSDTPair.div(wethInUSDTPair)
+  // } else {
+  //   return BIG_DECIMAL_ZERO
+  // }
+
+  // all 3 have been created
+  // subgraph-exchange
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    const totalLiquidityETH = wethInDaiPair.plus(wethInUSDCPair).plus(wethInUSDTPair)
-    const daiWeight = daiInDaiPair.div(totalLiquidityETH)
-    const usdcWeight = usdcInUSDCPair.div(totalLiquidityETH)
-    const usdtWeight = usdtInUSDTPair.div(totalLiquidityETH)
+    const totalLiquidityETH = wethInDaiPair.plus(wethInUSDCPair).plus(wethInUSDTPair) 
+    const daiWeight = wethInDaiPair.div(totalLiquidityETH)
+    const usdcWeight = wethInUSDCPair.div(totalLiquidityETH)
+    const usdtWeight = wethInUSDTPair.div(totalLiquidityETH)
     return daiInDaiPair
       .div(wethInDaiPair)
       .times(daiWeight)
@@ -106,8 +132,8 @@ export function getEthPriceInUSD(): BigDecimal {
     // dai and USDC have been created
   } else if (daiPair !== null && usdtPair !== null) {
     const totalLiquidityETH = wethInDaiPair.plus(wethInUSDTPair)
-    const daiWeight = daiInDaiPair.div(totalLiquidityETH)
-    const usdtWeight = usdtInUSDTPair.div(totalLiquidityETH)
+    const daiWeight = wethInDaiPair.div(totalLiquidityETH)
+    const usdtWeight = wethInUSDTPair.div(totalLiquidityETH)
     return daiInDaiPair.div(wethInDaiPair).times(daiWeight).plus(usdtInUSDTPair.div(wethInUSDTPair).times(usdtWeight))
     // USDC is the only pair so far
   } else if (usdtPair !== null) {
