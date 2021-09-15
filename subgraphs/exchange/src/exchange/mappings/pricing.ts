@@ -5,14 +5,14 @@ import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
 // Ropsten addresses
-const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
-const USDC_WETH_PAIR = '0x83116f17695e496e4250005e242d1770708792e5'
-const DAI_WETH_PAIR = '0xa41e305d60061af83182ac515dc859e76cfd8ce9' 
-const USDT_WETH_PAIR = '0x1557aecd250080dc3dcc4539392f429f32487fff'
 // const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
-// const USDC_WETH_PAIR = '0xc9244d7b95eb24a7ec1b343b879b2f194ac7f63f'
-// const DAI_WETH_PAIR = '0xd2010f84be6c71e4c8627148d39be5a72cb93a80' 
-// const USDT_WETH_PAIR = '0x62279b34bd56799977100f0222508dcd1dad3afe'
+// const USDC_WETH_PAIR = '0x83116f17695e496e4250005e242d1770708792e5'
+// const DAI_WETH_PAIR = '0xa41e305d60061af83182ac515dc859e76cfd8ce9' 
+// const USDT_WETH_PAIR = '0x1557aecd250080dc3dcc4539392f429f32487fff'
+const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
+const USDC_WETH_PAIR = '0x1c0e5563d1d7e662deae672d470dc9e813793585'
+const DAI_WETH_PAIR = '0x401ec9e948d6eaa694714eaf4ebb3b6c5e11025a' 
+const USDT_WETH_PAIR = '0xc061f7d573bcd723deaf4c333c63be0486248508'
 
 // Ganache addresses
 // const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
@@ -21,6 +21,7 @@ const USDT_WETH_PAIR = '0x1557aecd250080dc3dcc4539392f429f32487fff'
 // const USDT_WETH_PAIR = '0x686F00AEb7c59374a56BBc62fB521c50744C9D2A'
 
 export function getEthPriceInUSD(): BigDecimal {
+  // [Origin]
   // fetch eth prices for each stablecoin
   // let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
   // let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
@@ -49,6 +50,7 @@ export function getEthPriceInUSD(): BigDecimal {
   //   return ZERO_BD
   // }
 
+  // [Custom]
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
@@ -56,9 +58,9 @@ export function getEthPriceInUSD(): BigDecimal {
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
     let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
-    let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
-    let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+    let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+    let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+    let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
     return daiPair.token0Price
       .times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
@@ -174,7 +176,7 @@ let WHITELIST: string[] = [
 let MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('4') // 4000
 
 // minimum liquidity for price to get tracked
-let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0.001') // 2
+let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0.1') // 2
 
 /**
  * Search through graph to find derived Eth per token.
