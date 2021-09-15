@@ -31,6 +31,10 @@ export function getUSDRate(token: Address, block: ethereum.Block): BigDecimal {
   if (token != USDT_ADDRESS) {
     const tokenPriceETH = getEthRate(token, block)
     const ethPriceUSD = getEthPriceInUSD()
+    log.info('result getUSDRate---#{}---#{}', [
+      tokenPriceETH.toString(),
+      ethPriceUSD.toString()
+    ])
     return ethPriceUSD.times(tokenPriceETH)
   }
 
@@ -55,6 +59,13 @@ export function getEthRate(token: Address, block: ethereum.Block): BigDecimal {
     const pair = PairContract.bind(address)
 
     const reserves = pair.getReserves()
+
+    log.info('result getEthRate---#{}---#{}---#{}---#{}', [
+      WETH_ADDRESS.toHexString(),
+      pair.token0().toHexString(),
+      reserves.value0.toString(),
+      reserves.value1.toString()
+    ])
 
     eth =
       pair.token0() == WETH_ADDRESS
@@ -83,14 +94,29 @@ export function getEthPriceInUSD(): BigDecimal {
   const reserveDAIETH: BigDecimal[] = getReservePairETH(daiPair, BigInt.fromI32(18))
   const daiInDaiPair = reserveDAIETH[0] // 3333.9315925102037
   const wethInDaiPair = reserveDAIETH[1] // 3.4854929201922125
+  
+  log.info('result getEthPriceInUSD DAI---#{}---#{}', [
+    daiInDaiPair.toString(),
+    wethInDaiPair.toString(),
+  ])
 
   const reserveUSDCETH: BigDecimal[] = getReservePairETH(usdcPair, BigInt.fromI32(6))
   const usdcInUSDCPair = reserveUSDCETH[0] // 2552.551559
   const wethInUSDCPair = reserveUSDCETH[1] // 1.5010090492545534
 
+  log.info('result getEthPriceInUSD USDC---#{}---#{}', [
+    usdcInUSDCPair.toString(),
+    wethInUSDCPair.toString(),
+  ])
+
   const reserveUSDTETH: BigDecimal[] = getReservePairETH(usdtPair, BigInt.fromI32(6))
   const usdtInUSDTPair = reserveUSDTETH[0] // 3674.875997
   const wethInUSDTPair = reserveUSDTETH[1] // 0.9079877021261429
+
+  log.info('result getEthPriceInUSD USDT---#{}---#{}', [
+    usdtInUSDTPair.toString(),
+    wethInUSDTPair.toString(),
+  ])
 
   // all 3 have been created
   // develop
@@ -124,6 +150,12 @@ export function getEthPriceInUSD(): BigDecimal {
     const daiWeight = wethInDaiPair.div(totalLiquidityETH)
     const usdcWeight = wethInUSDCPair.div(totalLiquidityETH)
     const usdtWeight = wethInUSDTPair.div(totalLiquidityETH)
+    log.info('result getEthPriceInUSD calculate---#{}---#{}---#{}---#{}', [
+      totalLiquidityETH.toString(),
+      daiWeight.toString(),
+      usdcWeight.toString(),
+      usdtWeight.toString(),
+    ])
     return daiInDaiPair
       .div(wethInDaiPair)
       .times(daiWeight)

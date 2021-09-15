@@ -500,11 +500,12 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}--#{}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),
-    event.params.lockAmount.toString()
+    event.params.lockAmount.toString(),
+    getSonePrice(event.block).toString()
   ])
   const masterFarmerContract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
   const userInfo = masterFarmerContract.userInfo(event.params.pid, event.params.user)
