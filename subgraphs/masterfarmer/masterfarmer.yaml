@@ -54,4 +54,6 @@ dataSources:
           handler: migrate
         - function: dev(address)
           handler: dev
+      blockHandlers:
+        - handler: updateMasterFarmer
       file: ./src/masterfarmer.ts
