@@ -20,6 +20,7 @@
         "prepare:bsc": "mustache config/bsc.json block-info.template.yaml > block-info.yaml",
 
         "deploy": "yarn graph deploy --studio sone-block-info exchange.yaml",
-        "deploy-legacy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ s-one-system/sone-block-info-ropsten block-info.yaml"
+        "deploy-legacy:ropsten": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ s-one-system/sone-block-info-ropsten block-info.yaml",
+        "deploy-legacy:rinkeby": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ s-one-system/sone-block-info-rinkeby block-info.yaml"
     }
 }
