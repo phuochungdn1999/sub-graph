@@ -10,9 +10,9 @@
         "codegen": "graph codegen block-info.yaml",
         "build": "graph build block-info.yaml",
 
-        "create-local": "graph create --node http://54.179.36.236:8020/ s-one-finance/block-info",
-        "remove-local": "graph remove --node http://54.179.36.236:8020/ s-one-finance/block-info",
-        "deploy-local": "graph deploy --node http://54.179.36.236:8020/ --ipfs http://54.179.36.236:5001/ s-one-finance/block-info block-info.yaml",
+        "create-local": "graph create --node https://graph-node.s-one.finance/8020/ s-one-finance/block-info",
+        "remove-local": "graph remove --node https://graph-node.s-one.finance/8020/ s-one-finance/block-info",
+        "deploy-local": "graph deploy --node https://graph-node.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/block-info block-info.yaml",
         
         "prepare:mainnet": "mustache config/mainnet.json block-info.template.yaml > block-info.yaml",
         "prepare:rinkeby": "mustache config/rinkeby.json block-info.template.yaml > block-info.yaml",
