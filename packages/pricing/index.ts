@@ -1,22 +1,16 @@
 import {
   ADDRESS_ZERO,
   BIG_DECIMAL_1E18,
-  BIG_DECIMAL_1E6,
   BIG_DECIMAL_ONE,
   BIG_DECIMAL_ZERO,
   BIG_INT_ONE,
   BIG_INT_ZERO,
   DAI_WETH_PAIR,
   FACTORY_ADDRESS,
-  SONESWAP_WETH_USDT_PAIR_ADDRESS,
   SONE_FACTORY_START_BLOCK,
   SONE_TOKEN_ADDRESS,
-  SONE_USDT_PAIR_ADDRESS,
-  SONE_USDT_PAIR_START_BLOCK,
   UNISWAP_FACTORY_ADDRESS,
   UNISWAP_SONE_ETH_PAIR_FIRST_LIQUDITY_BLOCK,
-  UNISWAP_SONE_USDT_PAIR_ADDRESS,
-  UNISWAP_WETH_USDT_PAIR_ADDRESS,
   USDC_WETH_PAIR,
   USDT_ADDRESS,
   USDT_WETH_PAIR,
@@ -185,7 +179,7 @@ function getReservePairETH(pair: PairContract, decimalToken: BigInt): BigDecimal
   } else {
     reserveToken = reserves.value1.toBigDecimal().div(exponentToBigDecimal(decimalToken))
     reserveWETH = reserves.value0.toBigDecimal().div(BIG_DECIMAL_1E18)
-  }
+  } 
   return [reserveToken, reserveWETH]
 }
 

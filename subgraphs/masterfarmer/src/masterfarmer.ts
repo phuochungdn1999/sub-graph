@@ -14,17 +14,15 @@ import {
 } from '../generated/MasterFarmer/MasterFarmer'
 import { Address, BigDecimal, BigInt, dataSource, ethereum, log } from '@graphprotocol/graph-ts'
 import {
-  BIG_DECIMAL_1E12,
   BIG_DECIMAL_1E18,
   BIG_DECIMAL_ZERO,
   BIG_INT_ONE,
   BIG_INT_ONE_DAY_SECONDS,
   BIG_INT_ZERO,
   MASTER_FARMER_ADDRESS,
-  MASTER_FARMER_START_BLOCK,
 } from 'const'
 import { History, MasterFarmer, Pool, PoolHistory, User } from '../generated/schema'
-import { getSonePrice, getUSDRate } from 'pricing'
+import { getUSDRate } from 'pricing'
 
 import { ERC20 as ERC20Contract } from '../generated/MasterFarmer/ERC20'
 import { Pair as PairContract } from '../generated/MasterFarmer/Pair'
@@ -104,7 +102,6 @@ export function getPool(id: BigInt, block: ethereum.Block): Pool {
     pool.entryUSD = BIG_DECIMAL_ZERO
     pool.exitUSD = BIG_DECIMAL_ZERO
     pool.soneHarvested = BIG_DECIMAL_ZERO
-    pool.soneHarvestedUSD = BIG_DECIMAL_ZERO
     pool.save()
   }
 
@@ -154,7 +151,6 @@ function getPoolHistory(pool: Pool, block: ethereum.Block): PoolHistory {
     history.entryUSD = BIG_DECIMAL_ZERO
     history.exitUSD = BIG_DECIMAL_ZERO
     history.soneHarvested = BIG_DECIMAL_ZERO
-    history.soneHarvestedUSD = BIG_DECIMAL_ZERO
   }
 
   return history as PoolHistory
@@ -173,7 +169,6 @@ export function getUser(pid: BigInt, address: Address, block: ethereum.Block): U
     user.amount = BIG_INT_ZERO
     user.rewardDebt = BIG_INT_ZERO
     user.soneHarvested = BIG_DECIMAL_ZERO
-    user.soneHarvestedUSD = BIG_DECIMAL_ZERO
     user.entryUSD = BIG_DECIMAL_ZERO
     user.exitUSD = BIG_DECIMAL_ZERO
     user.timestamp = block.timestamp
@@ -500,12 +495,11 @@ export function ownershipTransferred(event: OwnershipTransferred): void {
 }
 
 export function sendSoneReward(event: SendSoneReward): void {
-  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}--#{}', [
+  log.info('Param event sendSoneReward #{}---#{}---#{}---#{}', [
     event.params.pid.toString(),
     event.params.user.toHex(),
     event.params.amount.toString(),
-    event.params.lockAmount.toString(),
-    getSonePrice(event.block).toString()
+    event.params.lockAmount.toString()
   ])
   const masterFarmerContract = MasterFarmerContract.bind(MASTER_FARMER_ADDRESS)
   const userInfo = masterFarmerContract.userInfo(event.params.pid, event.params.user)
@@ -513,14 +507,10 @@ export function sendSoneReward(event: SendSoneReward): void {
   const pool = getPool(event.params.pid, event.block)
   const poolHistory = getPoolHistory(pool, event.block)
   const amount = event.params.amount.toBigDecimal().div(BIG_DECIMAL_1E18)
-  const soneHarvestedUSD = amount.times(getSonePrice(event.block))
   user.soneHarvested = user.soneHarvested.plus(amount)
-  user.soneHarvestedUSD = user.soneHarvestedUSD.plus(soneHarvestedUSD)
   user.rewardDebt = userInfo.value1
   pool.soneHarvested = pool.soneHarvested.plus(amount)
-  pool.soneHarvestedUSD = pool.soneHarvestedUSD.plus(soneHarvestedUSD)
   poolHistory.soneHarvested = pool.soneHarvested
-  poolHistory.soneHarvestedUSD = pool.soneHarvestedUSD
   user.save()
   pool.save()
   poolHistory.save()
@@ -528,7 +518,7 @@ export function sendSoneReward(event: SendSoneReward): void {
 
 export function handleBlock(block: ethereum.Block): void {
   log.info('Param handleBlock #{}', [block.number.toString()])
-  let masterFarmer = MasterFarmer.load(MASTER_FARMER_ADDRESS.toHex())
+  const masterFarmer = MasterFarmer.load(MASTER_FARMER_ADDRESS.toHex())
 
   if (masterFarmer !== null) {
     // Update masterfamermer bonusMultiplier
