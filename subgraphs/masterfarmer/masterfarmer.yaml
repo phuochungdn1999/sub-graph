@@ -10,7 +10,7 @@ dataSources:
     source:
       address: '0x511FaE7b224F32cB1570d8D747777d4119264859'
       abi: MasterFarmer
-      startBlock: 9283340
+      startBlock: 9283345
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -39,19 +39,20 @@ dataSources:
           handler: ownershipTransferred
         - event: Withdraw(indexed address,indexed uint256,uint256)
           handler: withdraw
-      callHandlers:
-        - function: add(uint256,address,bool)
+        - event: Add(uint256,address,bool)
           handler: add
-        - function: set(uint256,uint256,bool)
+        - event: Set(indexed uint256,uint256,bool)
           handler: set
-        - function: massUpdatePools()
-          handler: massUpdatePools
-        - function: updatePool(uint256)
-          handler: updatePool
-        - function: setMigrator(address)
+        - event: SetMigrator(address)
           handler: setMigrator
-        - function: migrate(uint256)
+        - event: Migrate(indexed uint256)
           handler: migrate
-        - function: dev(address)
+        - event: UpdatePool(indexed uint256)
+          handler: updatePool
+        - event: Dev(address)
           handler: dev
+        - event: SendSoneReward(indexed address,indexed uint256,uint256,uint256)
+          handler: sendSoneReward
+      blockHandlers:
+        - handler: handleBlock
       file: ./src/masterfarmer.ts

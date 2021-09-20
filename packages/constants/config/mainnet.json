@@ -1,6 +1,6 @@
 {
     "factory_address": "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac",
-    "masterchef_address": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
+    "masterfarmer_address": "0xc2edad668740f1aa35e4d8f227fb8e17dca888cd",
     "sushi_bar_address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
     "sushi_maker_address": "0xe11fc0b43ab98eb91e9836129d1ee7c3bc95df50",
     "sushi_token_address": "0x6b3595068778dd592e39a122f4f5a5cf09c90fe2",
@@ -22,5 +22,9 @@
     "bentobox_address": "0xf5bce5077908a1b7370b9ae04adc565ebd643966",
     "kashi_pair_medium_risk_master_address": "0x2cba6ab6574646badc84f0544d05059e57a5dc42",
     "minichef_address": "0x0000000000000000000000000000000000000000",
-    "min_liquidity_threshold": "5"
+    "min_liquidity_threshold": "5",
+    "master_farmer_start_block": "0",
+    "uniswap_sone_eth_start_block": "0",
+    "sone_factory_start_block": "0",
+    "sone_usdt_pair_start_block": "0"
 }
