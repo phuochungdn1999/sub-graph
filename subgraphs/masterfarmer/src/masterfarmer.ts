@@ -24,7 +24,7 @@ import {
     MASTER_FARMER_START_BLOCK,
   } from 'const'
   import { History, MasterFarmer, Pool, PoolHistory, User } from '../generated/schema'
-  import { getSonePrice, getUSDRate } from '../../exchange/src/exchange/pricing'
+  import { getSonePrice, getUSDRate } from 'pricing'
   
   import { Pair as PairContract } from '../generated/MasterFarmer/Pair'
 

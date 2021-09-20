@@ -1,7 +1,7 @@
 {
     "name": "exchange",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "0.0.2",
     "author": "SoneSwap",
     "files": [
         "generated"
@@ -16,13 +16,17 @@
         "codegen": "graph codegen exchange.yaml",
         "build": "graph build exchange.yaml",
 
-        "create:private": "graph create --node https://graph-node.s-one.finance/8020/ s-one-finance/soneswap",
-        "remove:private": "graph remove --node https://graph-node.s-one.finance/8020/ s-one-finance/soneswap",
-        "deploy:private": "graph deploy --node https://graph-node.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/soneswap exchange.yaml",
+        "create-local": "graph create --node http://localhost:8020/ s-one-finance/soneswap",
+        "remove-local": "graph remove --node http://localhost:8020/ s-one-finance/soneswap",
+        "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 s-one-finance/soneswap exchange.yaml",
 
-        "create:ganache": "graph create --node https://graph-node-2.s-one.finance/8020/ s-one-finance/sone-swap",
-        "remove:ganache": "graph remove --node https://graph-node-2.s-one.finance/8020/ s-one-finance/sone-swap",
-        "deploy:ganache": "graph deploy --node https://graph-node-2.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/sone-swap exchange.yaml",
+        "create-private:rinkeby": "graph create --node https://graph-node.s-one.finance/8020/ s-one-finance/soneswap",
+        "remove-private:rinkeby": "graph remove --node https://graph-node.s-one.finance/8020/ s-one-finance/soneswap",
+        "deploy-private:rinkeby": "graph deploy --node https://graph-node.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/soneswap exchange.yaml",
+
+        "create-private:ganache": "graph create --node https://graph-node-2.s-one.finance/8020/ s-one-finance/sone-swap",
+        "remove-private:ganache": "graph remove --node https://graph-node-2.s-one.finance/8020/ s-one-finance/sone-swap",
+        "deploy-private:ganache": "graph deploy --node https://graph-node-2.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/sone-swap exchange.yaml",
         
         "deploy": "yarn graph deploy --studio soneswap exchange.yaml",
         "deploy-legacy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/sone-swap exchange.yaml",
