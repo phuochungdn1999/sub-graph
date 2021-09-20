@@ -52,7 +52,7 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('5')
 
-export const WETH_ADDRESS = Address.fromString('0xc778417e063141139fce010982780140aa0cd5ab')
+export const WETH_ADDRESS = Address.fromString('0xF63b0Be21Fe39fA91fc22Ce6D8fA3c96d766Cebd')
 
 export const SONESWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0xc061f7d573bcd723deaf4c333c63be0486248508')
 

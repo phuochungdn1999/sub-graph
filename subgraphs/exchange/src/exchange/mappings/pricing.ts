@@ -4,47 +4,198 @@ import { Pair, Token, Bundle } from '../../../generated/schema'
 import { BigDecimal, Address, BigInt } from '@graphprotocol/graph-ts/index'
 import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from './helpers'
 
-const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
-const USDC_WETH_PAIR = '0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc' // created 10008355
-const DAI_WETH_PAIR = '0xa478c2975ab1ea89e8196811f51a7b7ade33eb11' // created block 10042267
-const USDT_WETH_PAIR = '0x0efb8103f5e558954348fbd2716fd775da2e4fb2' // created block 10570733
+// Ropsten addresses
+// const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
+// const USDC_WETH_PAIR = '0x83116f17695e496e4250005e242d1770708792e5'
+// const DAI_WETH_PAIR = '0xa41e305d60061af83182ac515dc859e76cfd8ce9' 
+// const USDT_WETH_PAIR = '0x1557aecd250080dc3dcc4539392f429f32487fff'
+
+// const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab'
+// const USDC_WETH_PAIR = '0x1c0e5563d1d7e662deae672d470dc9e813793585'
+// const DAI_WETH_PAIR = '0x401ec9e948d6eaa694714eaf4ebb3b6c5e11025a' 
+// const USDT_WETH_PAIR = '0xc061f7d573bcd723deaf4c333c63be0486248508'
+
+// Rinkeby addresses
+const WETH_ADDRESS = '0xf63b0be21fe39fa91fc22ce6d8fa3c96d766cebd'
+const USDC_WETH_PAIR = '0x865f9bb8d59a66686db8b83992679c82a6a62383'
+const DAI_WETH_PAIR = '0x391c4a1fab3a48fd4dc4de4b8d176df3ce56dd47' 
+const USDT_WETH_PAIR = '0xd52b311fb0c2bb2a8338341d2a2260baf74c70f7'
+
+// Ganache addresses
+// const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
+// const USDC_WETH_PAIR = '0xEc4e894AfB353844FCfCA6654eeC02c6190C4081'
+// const DAI_WETH_PAIR = '0x6E98Da3C3a31E0a48188319c18bd8Bfe2e968DBB' 
+// const USDT_WETH_PAIR = '0x686F00AEb7c59374a56BBc62fB521c50744C9D2A'
 
 export function getEthPriceInUSD(): BigDecimal {
+  // [Origin]
   // fetch eth prices for each stablecoin
+  // let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
+  // let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
+  // let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
+
+  // // all 3 have been created
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve0)
+  //   let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+  //   let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+  //   let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+  //   return daiPair.token0Price
+  //     .times(daiWeight)
+  //     .plus(usdcPair.token0Price.times(usdcWeight))
+  //     .plus(usdtPair.token1Price.times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdtPair.reserve1)
+  //   let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+  //   let usdcWeight = usdtPair.reserve1.div(totalLiquidityETH)
+  //   return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdcWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   return usdtPair.token0Price
+  // } else {
+  //   return ZERO_BD
+  // }
+
+  // [Custom] - Ropsten
+  // let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
+  // let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
+  // let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
+  
+  // // all 3 have been created
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
+  //   let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
+  //   let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
+  //   let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
+  //   return daiPair.token0Price
+  //     .times(daiWeight)
+  //     .plus(usdcPair.token1Price.times(usdcWeight))
+  //     .plus(usdtPair.token0Price.times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   let totalLiquidityETH = daiPair.reserve1.plus(usdtPair.reserve1)
+  //   let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
+  //   let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+  //   return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   return usdtPair.token0Price
+  // } else {
+  //   return ZERO_BD
+  // }
+
+  // [Custom] - Rinkeby
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
-  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
-
+  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
+  
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve0)
+    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
     let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
-    let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+    let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
     return daiPair.token0Price
       .times(daiWeight)
       .plus(usdcPair.token0Price.times(usdcWeight))
-      .plus(usdtPair.token1Price.times(usdtWeight))
+      .plus(usdtPair.token0Price.times(usdtWeight))
     // dai and USDC have been created
   } else if (daiPair !== null && usdtPair !== null) {
     let totalLiquidityETH = daiPair.reserve1.plus(usdtPair.reserve1)
-    let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    let usdcWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdcWeight))
+    let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
+    let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
+    return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
     // USDC is the only pair so far
   } else if (usdtPair !== null) {
     return usdtPair.token0Price
   } else {
     return ZERO_BD
   }
+
+
+  // all 3 have been created
+  // if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
+  //   let daiPairToken0: Token = Token.load(daiPair.token0) as Token
+  //   let usdcPairToken0: Token = Token.load(usdcPair.token0) as Token
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  
+  //   let daiReserve = daiPairToken0.symbol == "DAI" ? daiPair.reserve0 : daiPair.reserve1
+  //   let usdcReserve = usdcPairToken0.symbol == "USDC" ? usdcPair.reserve0 : usdcPair.reserve1
+  //   let usdtReserve = usdtPairToken0.symbol == "USDT" ? usdtPair.reserve0 : usdtPair.reserve1
+  
+  //   let daiPrice = daiPairToken0.symbol == "DAI" ? daiPair.token0Price : daiPair.token1Price
+  //   let usdcPrice = usdcPairToken0.symbol == "USDC" ? usdcPair.token0Price : usdcPair.token1Price
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   let totalLiquidityETH = daiReserve.plus(usdcReserve).plus(usdtReserve)
+  //   let daiWeight = daiReserve.div(totalLiquidityETH)
+  //   let usdcWeight = usdcReserve.div(totalLiquidityETH)
+  //   let usdtWeight = usdtReserve.div(totalLiquidityETH)
+
+  //   log.debug(`Pricing: daiPrice.times(daiWeight): {}`, [daiPrice.times(daiWeight).toString()])
+  //   log.debug(`Pricing: usdcPrice.times(usdcWeight): {}`, [usdcPrice.times(usdcWeight).toString()])
+  //   log.debug(`Pricing: usdtPrice.times(usdtWeight): {}`, [usdtPrice.times(usdtWeight).toString()])
+
+  //   return daiPrice
+  //     .times(daiWeight)
+  //     .plus(usdcPrice.times(usdcWeight))
+  //     .plus(usdtPrice.times(usdtWeight))
+  //   // dai and USDC have been created
+  // } else if (daiPair !== null && usdtPair !== null) {
+  //   let daiPairToken0: Token = Token.load(daiPair.token0) as Token
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  
+  //   let daiReserve = daiPairToken0.symbol == "DAI" ? daiPair.reserve0 : daiPair.reserve1
+  //   let usdtReserve = usdtPairToken0.symbol == "USDT" ? usdtPair.reserve0 : usdtPair.reserve1
+  
+  //   let daiPrice = daiPairToken0.symbol == "DAI" ? daiPair.token0Price : daiPair.token1Price
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   let totalLiquidityETH = daiReserve.plus(usdtReserve)
+  //   let daiWeight = daiReserve.div(totalLiquidityETH)
+  //   let usdtWeight = usdtReserve.div(totalLiquidityETH)
+
+  //   log.debug(`Pricing: daiPrice.times(daiWeight): {}`, [daiPrice.times(daiWeight).toString()])
+  //   log.debug(`Pricing: usdtPrice.times(usdtWeight): {}`, [usdtPrice.times(usdtWeight).toString()])
+
+  //   return daiPrice.times(daiWeight).plus(usdtPrice.times(usdtWeight))
+  //   // USDC is the only pair so far
+  // } else if (usdtPair !== null) {
+  //   let usdtPairToken0: Token = Token.load(usdtPair.token0) as Token
+  //   let usdtPrice = usdtPairToken0.symbol == "USDT" ? usdtPair.token0Price : usdtPair.token1Price
+
+  //   log.debug(`Pricing: usdtPrice: {}`, [usdtPrice.toString()])
+
+  //   return usdtPrice
+  // } else {
+  //   return ZERO_BD
+  // }
 }
 
 // token where amounts should contribute to tracked volume and liquidity
 let WHITELIST: string[] = [
-  '0xc778417e063141139fce010982780140aa0cd5ab', // WETH
-  // '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
-  // '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
-  '0x516de3a7a567d81737e3a46ec4ff9cfd1fcb0136', // USDT
+  // Ropsten addresses
+  // '0xc778417e063141139fce010982780140aa0cd5ab', // WETH
+  // '0x266d839248f3a920c77d45c4361f707627a907d9', // DAI
+  // '0xf1732c0b75558a6be7658860a34a0077c440be90', // USDC
+  // '0x393397baae01dc19678220e4d3fd34fda4febd1d', // USDT
+  // '0x57bb30bdb0d449bf687ed648acf2467f045c8e74', // SONE
+
+  // Rinkeby addresses
+  '0xf63b0be21fe39fa91fc22ce6d8fa3c96d766cebd', // WETH
+  '0x189dd03f2c85cd0d6f106419c72713f447d92084', // DAI
+  '0x52f25fc93d41698e260424a38378bede1a337cf5', // USDC
+  '0x1a6a64b5be7fa1fb776b0f98496003a6819530be', // USDT
+  '0x4141fa29806e4d0bfd19e4c4e8f6fc18d02168c7', // SONE
+
+  // Ganache addresses
+  // '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B', // WETH
+  // '0xF0e4024f29Fd73F2c1757b7d9CbA93de76100feF', // DAI
+  // '0x78bA67047aB65c73d699B6eE54620E6c46f97840', // USDC
+  // '0x635BCc6A77d9B42B0483f2dED34b9f1A97A221Df', // USDT
+  // '0x337006106E7Dacd7D84b91F9BCB6cB1182837870', // SONE
+
   // '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
   // '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643', // cDAI
   // '0x39aa39c021dfbae8fac545936693ac917d5e7563', // cUSDC
@@ -64,10 +215,10 @@ let WHITELIST: string[] = [
 ]
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
-let MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('400000')
+let MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('4') // 4000
 
 // minimum liquidity for price to get tracked
-let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('2')
+let MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('0.1') // 2
 
 /**
  * Search through graph to find derived Eth per token.
@@ -79,15 +230,22 @@ export function findEthPerToken(token: Token): BigDecimal {
   }
   // loop through whitelist and check if paired with any
   for (let i = 0; i < WHITELIST.length; ++i) {
+    if (token.id == WHITELIST[i]) {
+      continue
+    }
     let pairAddress = factoryContract.getPair(Address.fromString(token.id), Address.fromString(WHITELIST[i]))
-    log.info(`Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
+    // log.debug(`Pricing: Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
     if (pairAddress.toHexString() != ADDRESS_ZERO) {
       let pair = Pair.load(pairAddress.toHexString())
+      // log.debug(`Pricing: reserveETH: {}`, [pair.reserveETH.toString()])
+      // log.debug(`Pricing: MINIMUM_LIQUIDITY_THRESHOLD_ETH: {}`, [MINIMUM_LIQUIDITY_THRESHOLD_ETH.toString()])
       if (pair.token0 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
+        // log.debug(`pair.token0 == token.id`, [])
         let token1 = Token.load(pair.token1)
         return pair.token1Price.times(token1.derivedETH as BigDecimal) // return token1 per our token * Eth per token 1
       }
       if (pair.token1 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
+        // log.debug(`pair.token1 == token.id`, [])
         let token0 = Token.load(pair.token0)
         return pair.token0Price.times(token0.derivedETH as BigDecimal) // return token0 per our token * ETH per token 0
       }
@@ -119,7 +277,7 @@ export function getTrackedVolumeUSD(
   }
 
   // if less than 5 LPs, require high minimum reserve amount amount or return 0
-  if (pair.liquidityProviderCount.lt(BigInt.fromI32(5))) {
+  if (pair.liquidityProviderCount.lt(BigInt.fromI32(1))) { // BigInt.fromI32(5)
     let reserve0USD = pair.reserve0.times(price0)
     let reserve1USD = pair.reserve1.times(price1)
     if (WHITELIST.includes(token0.id) && WHITELIST.includes(token1.id)) {

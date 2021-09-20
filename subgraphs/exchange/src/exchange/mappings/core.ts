@@ -218,6 +218,11 @@ export function handleSync(event: Sync): void {
   let token1 = Token.load(pair.token1)
   let uniswap = UniswapFactory.load(FACTORY_ADDRESS)
 
+  log.debug(`handleSync: pair.token0: {}`, [pair.token0.toString()])
+  log.debug(`handleSync: pair.token1: {}`, [pair.token1.toString()])
+  log.debug(`handleSync: pair.reserve0: {}`, [pair.reserve0.toString()])
+  log.debug(`handleSync: pair.reserve1: {}`, [pair.reserve1.toString()])
+
   // reset factory liquidity by subtracting onluy tarcked liquidity
   uniswap.totalLiquidityETH = uniswap.totalLiquidityETH.minus(pair.trackedReserveETH as BigDecimal)
 
@@ -256,6 +261,7 @@ export function handleSync(event: Sync): void {
   }
 
   // use derived amounts within pair
+  log.debug(`handleSync: pair.reserve0: {}`, [pair.reserve0.toString()])
   pair.trackedReserveETH = trackedLiquidityETH
   pair.reserveETH = pair.reserve0
     .times(token0.derivedETH as BigDecimal)
