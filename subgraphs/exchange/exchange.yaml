@@ -8,9 +8,9 @@ dataSources:
     name: Factory
     network: rinkeby
     source:
-      address: '0x59863261650e93605fcd7795c97e0d7968842808'
+      address: '0x0327c2fF325e7F4E13cabbf7f261130A4048b864'
       abi: Factory
-      startBlock: 9283340
+      startBlock: 9342012
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

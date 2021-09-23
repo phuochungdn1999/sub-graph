@@ -16,10 +16,10 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 // const USDT_WETH_PAIR = '0xc061f7d573bcd723deaf4c333c63be0486248508'
 
 // Rinkeby addresses
-const WETH_ADDRESS = '0xf63b0be21fe39fa91fc22ce6d8fa3c96d766cebd'
-const USDC_WETH_PAIR = '0x865f9bb8d59a66686db8b83992679c82a6a62383'
-const DAI_WETH_PAIR = '0x391c4a1fab3a48fd4dc4de4b8d176df3ce56dd47' 
-const USDT_WETH_PAIR = '0xd52b311fb0c2bb2a8338341d2a2260baf74c70f7'
+const WETH_ADDRESS = '0x18665A1EB12785A38118ef2063aBB587e42d51e8'
+const USDC_WETH_PAIR = '0x301de729232B4003D268D17ab0D1eeFe03785C2c'
+const DAI_WETH_PAIR = '0x6A5D071C0B91452507ce5eF261491a7c9019deE1'
+const USDT_WETH_PAIR = '0xe90d087b5509F20E530C660daB9024f0224bE021'
 
 // Ganache addresses
 // const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
@@ -84,30 +84,44 @@ export function getEthPriceInUSD(): BigDecimal {
   // } else {
   //   return ZERO_BD
   // }
-
+  log.info('Pricing: start---', [])
   // [Custom] - Rinkeby
-  let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token0
-  let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token0
+  let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token1
+  let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
-  
+  log.info('Pricing: end---', [])
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
-    let totalLiquidityETH = daiPair.reserve1.plus(usdcPair.reserve1).plus(usdtPair.reserve1)
-    let daiWeight = daiPair.reserve1.div(totalLiquidityETH)
-    let usdcWeight = usdcPair.reserve1.div(totalLiquidityETH)
+    let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
+    let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
+    let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
     let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    return daiPair.token0Price
+    log.info('Pricing: into 1---{}--{}--{}--{}', [
+      totalLiquidityETH.toString(),
+      daiWeight.toString(),
+      usdcWeight.toString(),
+      usdtWeight.toString()
+    ])
+    return daiPair.token1Price
       .times(daiWeight)
-      .plus(usdcPair.token0Price.times(usdcWeight))
+      .plus(usdcPair.token1Price.times(usdcWeight))
       .plus(usdtPair.token0Price.times(usdtWeight))
     // dai and USDC have been created
   } else if (daiPair !== null && usdtPair !== null) {
-    let totalLiquidityETH = daiPair.reserve1.plus(usdtPair.reserve1)
+    let totalLiquidityETH = daiPair.reserve0.plus(usdtPair.reserve1)
     let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
-    let usdtWeight = usdtPair.reserve0.div(totalLiquidityETH)
-    return daiPair.token0Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
+    let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
+    log.info('Pricing: into 2---{}--{}--{}', [
+      totalLiquidityETH.toString(),
+      daiWeight.toString(),
+      usdtWeight.toString()
+    ])
+    return daiPair.token1Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
     // USDC is the only pair so far
   } else if (usdtPair !== null) {
+    log.info('Pricing: into 3---{}', [
+      usdtPair.token0Price.toString(),
+    ])
     return usdtPair.token0Price
   } else {
     return ZERO_BD
@@ -183,11 +197,11 @@ let WHITELIST: string[] = [
   // '0x57bb30bdb0d449bf687ed648acf2467f045c8e74', // SONE
 
   // Rinkeby addresses
-  '0xf63b0be21fe39fa91fc22ce6d8fa3c96d766cebd', // WETH
-  '0x189dd03f2c85cd0d6f106419c72713f447d92084', // DAI
-  '0x52f25fc93d41698e260424a38378bede1a337cf5', // USDC
-  '0x1a6a64b5be7fa1fb776b0f98496003a6819530be', // USDT
-  '0x4141fa29806e4d0bfd19e4c4e8f6fc18d02168c7', // SONE
+  '0x18665A1EB12785A38118ef2063aBB587e42d51e8', // WETH
+  '0x4A732cEF0892afe9d7Fb021b67266595791B6c01', // DAI
+  '0x4adbE0738E934a5e220928A375B82d95F00D29e9', // USDC
+  '0x12cd536e6de4AfF412a62482D45433C83EF39FFC', // USDT
+  '0x5FEA1f4aEf9c78BC56cEd5083fb59d351396748f', // SONE
 
   // Ganache addresses
   // '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B', // WETH
