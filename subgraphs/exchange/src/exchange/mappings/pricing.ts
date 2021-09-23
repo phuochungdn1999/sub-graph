@@ -16,10 +16,10 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 // const USDT_WETH_PAIR = '0xc061f7d573bcd723deaf4c333c63be0486248508'
 
 // Rinkeby addresses
-const WETH_ADDRESS = '0x18665A1EB12785A38118ef2063aBB587e42d51e8'
-const USDC_WETH_PAIR = '0x301de729232B4003D268D17ab0D1eeFe03785C2c'
-const DAI_WETH_PAIR = '0x6A5D071C0B91452507ce5eF261491a7c9019deE1'
-const USDT_WETH_PAIR = '0xe90d087b5509F20E530C660daB9024f0224bE021'
+const WETH_ADDRESS = '0x18665a1eb12785a38118ef2063abb587e42d51e8'
+const USDC_WETH_PAIR = '0x301de729232b4003d268d17ab0d1eefe03785c2c'
+const DAI_WETH_PAIR = '0x6a5d071c0b91452507ce5ef261491a7c9019dee1'
+const USDT_WETH_PAIR = '0xe90d087b5509f20e530c660dab9024f0224be021'
 
 // Ganache addresses
 // const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
@@ -89,7 +89,6 @@ export function getEthPriceInUSD(): BigDecimal {
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
   let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
-  log.info('Pricing: end---', [])
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
     let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
@@ -124,6 +123,7 @@ export function getEthPriceInUSD(): BigDecimal {
     ])
     return usdtPair.token0Price
   } else {
+    log.info('Pricing: end---', [])
     return ZERO_BD
   }
 
@@ -197,11 +197,11 @@ let WHITELIST: string[] = [
   // '0x57bb30bdb0d449bf687ed648acf2467f045c8e74', // SONE
 
   // Rinkeby addresses
-  '0x18665A1EB12785A38118ef2063aBB587e42d51e8', // WETH
-  '0x4A732cEF0892afe9d7Fb021b67266595791B6c01', // DAI
-  '0x4adbE0738E934a5e220928A375B82d95F00D29e9', // USDC
-  '0x12cd536e6de4AfF412a62482D45433C83EF39FFC', // USDT
-  '0x5FEA1f4aEf9c78BC56cEd5083fb59d351396748f', // SONE
+  '0x18665a1eb12785a38118ef2063abb587e42d51e8', // WETH
+  '0x4a732cef0892afe9d7fb021b67266595791b6c01', // DAI
+  '0x4adbe0738e934a5e220928a375b82d95f00d29e9', // USDC
+  '0x12cd536e6de4aff412a62482d45433c83ef39ffc', // USDT
+  '0x5fea1f4aef9c78bc56ced5083fb59d351396748f', // SONE
 
   // Ganache addresses
   // '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B', // WETH
