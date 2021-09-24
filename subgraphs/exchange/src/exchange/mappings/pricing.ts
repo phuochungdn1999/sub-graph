@@ -235,15 +235,15 @@ export function findEthPerToken(token: Token): BigDecimal {
     // log.debug(`Pricing: Pair address of {} and {} is: {}`, [token.id, WHITELIST[i], pairAddress.toHexString()])
     if (pairAddress.toHexString() != ADDRESS_ZERO) {
       let pair = Pair.load(pairAddress.toHexString())
-      // log.debug(`Pricing: reserveETH: {}`, [pair.reserveETH.toString()])
-      // log.debug(`Pricing: MINIMUM_LIQUIDITY_THRESHOLD_ETH: {}`, [MINIMUM_LIQUIDITY_THRESHOLD_ETH.toString()])
+      log.debug(`Pricing: reserveETH: {}-{}`, [pair.reserveETH.toString(), pair.id])
+      log.debug(`Pricing: MINIMUM_LIQUIDITY_THRESHOLD_ETH: {}`, [MINIMUM_LIQUIDITY_THRESHOLD_ETH.toString()])
       if (pair.token0 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
-        // log.debug(`pair.token0 == token.id`, [])
+        log.debug(`pair.token0 == token.id`, [])
         let token1 = Token.load(pair.token1)
         return pair.token1Price.times(token1.derivedETH as BigDecimal) // return token1 per our token * Eth per token 1
       }
       if (pair.token1 == token.id && pair.reserveETH.gt(MINIMUM_LIQUIDITY_THRESHOLD_ETH)) {
-        // log.debug(`pair.token1 == token.id`, [])
+        log.debug(`pair.token1 == token.id`, [])
         let token0 = Token.load(pair.token0)
         return pair.token0Price.times(token0.derivedETH as BigDecimal) // return token0 per our token * ETH per token 0
       }
