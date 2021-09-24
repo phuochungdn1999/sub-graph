@@ -84,7 +84,6 @@ export function getEthPriceInUSD(): BigDecimal {
   // } else {
   //   return ZERO_BD
   // }
-  log.info('Pricing: start---', [])
   // [Custom] - Rinkeby
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
@@ -95,12 +94,6 @@ export function getEthPriceInUSD(): BigDecimal {
     let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
     let usdcWeight = usdcPair.reserve0.div(totalLiquidityETH)
     let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    log.info('Pricing: into 1---{}--{}--{}--{}', [
-      totalLiquidityETH.toString(),
-      daiWeight.toString(),
-      usdcWeight.toString(),
-      usdtWeight.toString()
-    ])
     return daiPair.token1Price
       .times(daiWeight)
       .plus(usdcPair.token1Price.times(usdcWeight))
@@ -110,20 +103,11 @@ export function getEthPriceInUSD(): BigDecimal {
     let totalLiquidityETH = daiPair.reserve0.plus(usdtPair.reserve1)
     let daiWeight = daiPair.reserve0.div(totalLiquidityETH)
     let usdtWeight = usdtPair.reserve1.div(totalLiquidityETH)
-    log.info('Pricing: into 2---{}--{}--{}', [
-      totalLiquidityETH.toString(),
-      daiWeight.toString(),
-      usdtWeight.toString()
-    ])
     return daiPair.token1Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
     // USDC is the only pair so far
   } else if (usdtPair !== null) {
-    log.info('Pricing: into 3---{}', [
-      usdtPair.token0Price.toString(),
-    ])
     return usdtPair.token0Price
   } else {
-    log.info('Pricing: end---', [])
     return ZERO_BD
   }
 
