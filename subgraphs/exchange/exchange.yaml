@@ -21,15 +21,15 @@ dataSources:
         - Token
       abis:
         - name: Factory
-          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/contracts/sone-smart-contracts/uniswapv2/UniswapV2Factory.sol/UniswapV2Factory.json
         - name: ERC20
-          file: ../../node_modules/@s-one-finance/core/build/contracts/ERC20.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/contracts/sone-smart-contracts/uniswapv2/interfaces/IERC20.sol/IERC20Uniswap.json
         - name: ERC20SymbolBytes
           file: ../../packages/abis/ERC20SymbolBytes.json
         - name: ERC20NameBytes
           file: ../../packages/abis/ERC20NameBytes.json
         - name: SoneToken
-          file: ../../node_modules/@s-one-finance/core/build/contracts/SoneToken.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/contracts/sone-token-sale/SoneToken.sol/SoneToken.json
       eventHandlers:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handleNewPair
@@ -49,9 +49,9 @@ templates:
         - Token
       abis:
         - name: Pair
-          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Pair.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/contracts/sone-smart-contracts/uniswapv2/UniswapV2Pair.sol/UniswapV2Pair.json
         - name: Factory
-          file: ../../node_modules/@s-one-finance/core/build/contracts/UniswapV2Factory.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/contracts/sone-smart-contracts/uniswapv2/UniswapV2Factory.sol/UniswapV2Factory.json
       eventHandlers:
         - event: Mint(indexed address,uint256,uint256)
           handler: handleMint
