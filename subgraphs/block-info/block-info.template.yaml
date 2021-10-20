@@ -20,6 +20,6 @@ dataSources:
         - Block
       abis:
         - name: BlockInfo
-          file: ../../node_modules/@s-one-finance/core/build/contracts/ERC20.json
+          file: ../../node_modules/@s-one-finance/core/artifacts/@openzeppelin/contracts/token/ERC20/ERC20.sol/ERC20.json
       blockHandlers:
         - handler: handleBlock
