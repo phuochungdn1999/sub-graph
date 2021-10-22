@@ -31,6 +31,10 @@
         
         "deploy": "yarn graph deploy --studio master-farmer masterfarmer.yaml",
         "deploy-legacy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ danielpham765/master-farmer masterfarmer.yaml",
-        "deploy-legacy:prod": "yarn graph deploy --product --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ s-one-system/master-farmer masterfarmer.yaml"
+        "deploy-legacy:prod": "yarn graph deploy --product --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ s-one-system/master-farmer masterfarmer.yaml",
+
+        "create-mainnet": "graph create --node https://graph-node.s-one.finance/8020/ s-one-finance/master-farmer",
+        "remove-mainnet": "graph remove --node https://graph-node.s-one.finance/8020/ s-one-finance/master-farmer",
+        "deploy-mainnet": "graph deploy --node https://graph-node.s-one.finance/8020/ --ipfs https://ipfs.s-one.finance s-one-finance/master-farmer masterfarmer.yaml"
     }
 }

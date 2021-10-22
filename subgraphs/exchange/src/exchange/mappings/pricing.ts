@@ -16,10 +16,16 @@ import { ZERO_BD, factoryContract, ADDRESS_ZERO, ONE_BD, UNTRACKED_PAIRS } from 
 // const USDT_WETH_PAIR = '0xc061f7d573bcd723deaf4c333c63be0486248508'
 
 // Rinkeby addresses
-const WETH_ADDRESS = '0x18665a1eb12785a38118ef2063abb587e42d51e8'
-const USDC_WETH_PAIR = '0x301de729232b4003d268d17ab0d1eefe03785c2c'
-const DAI_WETH_PAIR = '0x6a5d071c0b91452507ce5ef261491a7c9019dee1'
-const USDT_WETH_PAIR = '0xe90d087b5509f20e530c660dab9024f0224be021'
+// const WETH_ADDRESS = '0x18665a1eb12785a38118ef2063abb587e42d51e8'
+// const USDC_WETH_PAIR = '0x301de729232b4003d268d17ab0d1eefe03785c2c'
+// const DAI_WETH_PAIR = '0x6a5d071c0b91452507ce5ef261491a7c9019dee1'
+// const USDT_WETH_PAIR = '0xe90d087b5509f20e530c660dab9024f0224be021'
+
+// Mainnet addresses
+const WETH_ADDRESS = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+const USDC_WETH_PAIR = ''
+const DAI_WETH_PAIR = ''
+const USDT_WETH_PAIR = '0xd2d846b1255e81e816cb61402389449f9cf4d3bf'
 
 // Ganache addresses
 // const WETH_ADDRESS = '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B'
@@ -87,7 +93,7 @@ export function getEthPriceInUSD(): BigDecimal {
   // [Custom] - Rinkeby
   let daiPair = Pair.load(DAI_WETH_PAIR) // dai is token1
   let usdcPair = Pair.load(USDC_WETH_PAIR) // usdc is token1
-  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token0
+  let usdtPair = Pair.load(USDT_WETH_PAIR) // usdt is token1
   // all 3 have been created
   if (daiPair !== null && usdcPair !== null && usdtPair !== null) {
     let totalLiquidityETH = daiPair.reserve0.plus(usdcPair.reserve0).plus(usdtPair.reserve1)
@@ -106,7 +112,7 @@ export function getEthPriceInUSD(): BigDecimal {
     return daiPair.token1Price.times(daiWeight).plus(usdtPair.token0Price.times(usdtWeight))
     // USDC is the only pair so far
   } else if (usdtPair !== null) {
-    return usdtPair.token0Price
+    return usdtPair.token1Price
   } else {
     return ZERO_BD
   }
@@ -181,11 +187,18 @@ let WHITELIST: string[] = [
   // '0x57bb30bdb0d449bf687ed648acf2467f045c8e74', // SONE
 
   // Rinkeby addresses
-  '0x18665a1eb12785a38118ef2063abb587e42d51e8', // WETH
-  '0x4a732cef0892afe9d7fb021b67266595791b6c01', // DAI
-  '0x4adbe0738e934a5e220928a375b82d95f00d29e9', // USDC
-  '0x12cd536e6de4aff412a62482d45433c83ef39ffc', // USDT
-  '0x5fea1f4aef9c78bc56ced5083fb59d351396748f', // SONE
+  // '0x18665a1eb12785a38118ef2063abb587e42d51e8', // WETH
+  // '0x4a732cef0892afe9d7fb021b67266595791b6c01', // DAI
+  // '0x4adbe0738e934a5e220928a375b82d95f00d29e9', // USDC
+  // '0x12cd536e6de4aff412a62482d45433c83ef39ffc', // USDT
+  // '0x5fea1f4aef9c78bc56ced5083fb59d351396748f', // SONE
+
+  // Mainnet addresses
+  '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WETH
+  '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+  '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
+  '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+  '0xf5c771e0b749444eaec5c1f7ef5c0b93200bb0e4', // SONE
 
   // Ganache addresses
   // '0x5B62636C6d2b79fE47B131F0afee4a71aDf9723B', // WETH
