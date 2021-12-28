@@ -35,8 +35,8 @@ dataSources:
           handler: deposit
         - event: EmergencyWithdraw(indexed address,indexed uint256,uint256)
           handler: emergencyWithdraw
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: ownershipTransferred
+        # - event: OwnershipTransferred(indexed address,indexed address)
+        #   handler: ownershipTransferred
         - event: Withdraw(indexed address,indexed uint256,uint256)
           handler: withdraw
         - event: Add(uint256,address,bool)

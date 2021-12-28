@@ -10,7 +10,7 @@ dataSources:
     source:
       address: '0xb5aefea17ec832d2dcaf0a9c160db96f86fc5db9'
       abi: MasterFarmer
-      startBlock: 13453782
+      startBlock: 13453780 
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4

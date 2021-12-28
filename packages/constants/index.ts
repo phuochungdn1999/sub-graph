@@ -24,27 +24,27 @@ export const BIG_INT_ZERO = BigInt.fromI32(0)
 
 export const LOCKUP_POOL_NUMBER = BigInt.fromI32(29)
 
-export const FACTORY_ADDRESS = Address.fromString('0x096673dd28e215450218e02c1c22978e3e588a35')
+export const FACTORY_ADDRESS = Address.fromString('0x0327c2fF325e7F4E13cabbf7f261130A4048b864')
 
 export const LOCKUP_BLOCK_NUMBER = BigInt.fromI32(10959148)
 
-export const MASTER_FARMER_ADDRESS = Address.fromString('0xb5aefea17ec832d2dcaf0a9c160db96f86fc5db9')
+export const MASTER_FARMER_ADDRESS = Address.fromString('0x05bf874f71AAbf40966489e45DE3E5FcDC823927')
 
-export const SONE_TOKEN_ADDRESS = Address.fromString('0xf5c771e0b749444eaec5c1f7ef5c0b93200bb0e4')
+export const SONE_TOKEN_ADDRESS = Address.fromString('0x5FEA1f4aEf9c78BC56cEd5083fb59d351396748f')
 
-export const SONE_USDT_PAIR_ADDRESS = Address.fromString('0xa62b744736c80f4c93b8fb5d69f910f08c6f3521')
+export const SONE_USDT_PAIR_ADDRESS = Address.fromString('0xF1Eec9e028CE90e53e17add2814827240eF6c74B')
 
 export const SONE_DISTRIBUTOR_ADDRESS = Address.fromString('0x0000000000000000000000000000000000000000')
 
 export const NULL_CALL_RESULT_VALUE = '0x0000000000000000000000000000000000000000000000000000000000000001'
 
-export const USDC_WETH_PAIR = ''
+export const USDC_WETH_PAIR = '0x301de729232B4003D268D17ab0D1eeFe03785C2c'
 
-export const DAI_WETH_PAIR = ''
+export const DAI_WETH_PAIR = '0x6A5D071C0B91452507ce5eF261491a7c9019deE1'
 
-export const USDT_WETH_PAIR = '0xd2d846b1255e81e816cb61402389449f9cf4d3bf'
+export const USDT_WETH_PAIR = '0xe90d087b5509F20E530C660daB9024f0224bE021'
 
-export const SONE_USDT_PAIR = '0xa62b744736c80f4c93b8fb5d69f910f08c6f3521'
+export const SONE_USDT_PAIR = '0xF1Eec9e028CE90e53e17add2814827240eF6c74B'
 
 // minimum liquidity required to count towards tracked volume for pairs with small # of Lps
 export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
@@ -52,23 +52,23 @@ export const MINIMUM_USD_THRESHOLD_NEW_PAIRS = BigDecimal.fromString('0')
 // minimum liquidity for price to get tracked
 export const MINIMUM_LIQUIDITY_THRESHOLD_ETH = BigDecimal.fromString('5')
 
-export const WETH_ADDRESS = Address.fromString('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2')
+export const WETH_ADDRESS = Address.fromString('0x18665A1EB12785A38118ef2063aBB587e42d51e8')
 
-export const SONESWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0xd2d846b1255e81e816cb61402389449f9cf4d3bf')
+export const SONESWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0xe90d087b5509F20E530C660daB9024f0224bE021')
 
-export const USDT_ADDRESS = Address.fromString('0xdac17f958d2ee523a2206206994597c13d831ec7')
+export const USDT_ADDRESS = Address.fromString('0x12cd536e6de4AfF412a62482D45433C83EF39FFC')
 
 export const MASTER_FARMER_START_BLOCK = BigInt.fromString('0')
 
-export const UNISWAP_FACTORY_ADDRESS = Address.fromString('0x096673dd28e215450218e02c1c22978e3e588a35')
+export const UNISWAP_FACTORY_ADDRESS = Address.fromString('0x0327c2fF325e7F4E13cabbf7f261130A4048b864')
 
 export const UNISWAP_SONE_ETH_PAIR_FIRST_LIQUDITY_BLOCK = BigInt.fromString('0')
 
-export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0xd2d846b1255e81e816cb61402389449f9cf4d3bf')
+export const UNISWAP_WETH_USDT_PAIR_ADDRESS = Address.fromString('0xe90d087b5509F20E530C660daB9024f0224bE021')
 
-export const UNISWAP_SONE_ETH_PAIR_ADDRESS = Address.fromString('0xc4d0e8f525c0d1bf585dcf4b61111084a2211693')
+export const UNISWAP_SONE_ETH_PAIR_ADDRESS = Address.fromString('0x21ddc5604FEB889063Ab56618BC6b8A2b2694BAb')
 
-export const UNISWAP_SONE_USDT_PAIR_ADDRESS = Address.fromString('0xa62b744736c80f4c93b8fb5d69f910f08c6f3521')
+export const UNISWAP_SONE_USDT_PAIR_ADDRESS = Address.fromString('0xF1Eec9e028CE90e53e17add2814827240eF6c74B')
 
 export const SONE_FACTORY_START_BLOCK = BigInt.fromString('0')
 
